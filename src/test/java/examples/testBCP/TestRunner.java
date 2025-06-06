@@ -1,4 +1,4 @@
-package examples.conduitApp;
+package examples.testBCP;
 
 import com.intuit.karate.junit5.Karate;
 

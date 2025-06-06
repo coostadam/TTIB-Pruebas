@@ -1,4 +1,4 @@
-package examples.conduitApp.helpers;
+package examples.testBCP.helpers;
 
 import com.github.javafaker.Faker;
 
