@@ -15,11 +15,12 @@ Feature: Get a transfer of a external account
     * def AV2 = read('classpath:examples/bcpApp/jsonData/AV2.json')
     * def AV3 = read('classpath:examples/bcpApp/jsonData/AV3.json')
     * def CT2 = read('classpath:examples/bcpApp/jsonData/CT2.json')
-    * def CT3 == read('classpath:examples/bcpApp/jsonData/CT3.json')
+    * def CT3 = read('classpath:examples/bcpApp/jsonData/CT3.json')
     * def CT5 = read('classpath:examples/bcpApp/jsonData/CT5.json')
 
   Scenario: Get a transfer of a external account
-    * def dineroInicial = db.readRows('SELECT * FROM cuentas WHERE id = 1')[0].saldo
+    * def cuenta = db.readRows("SELECT * FROM cuentas WHERE numero_cuenta = '123456789'")[0]
+    * def dineroInicial = cuenta.saldo
 
     Given path 'transferencias', 'externas'
     When method GET
@@ -60,7 +61,7 @@ Feature: Get a transfer of a external account
     Then status 200
     And match response == CT5
 
-    * def dineroFinal = db.readRows("SELECT saldo FROM cuentas WHERE id = 1")[0].saldo
+    * def dineroFinal = db.readRows("SELECT saldo FROM cuentas WHERE numero_cuenta = '123456789'")[0].saldo
     * match dineroFinal == dineroInicial + amount
 
 
