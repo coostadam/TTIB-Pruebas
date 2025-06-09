@@ -1,7 +1,6 @@
 # QA-791, QA-793 y QA-800
 Feature: Recepción de abonos en cuenta de Ahorro
 
-
 # QA-791
 Scenario: En soles para mismo cliente con Ruc
 
