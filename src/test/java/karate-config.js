@@ -5,7 +5,7 @@ function fn() {
     env = 'dev';
   }
   var config = {
-    apiUrl: 'https://conduit-api.bondaracademy.com/api/',
+    apiUrl: 'https://bcp.com/api/',
   }
 
   if (env == 'dev') {
