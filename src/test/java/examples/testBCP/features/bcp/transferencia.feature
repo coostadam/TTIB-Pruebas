@@ -27,9 +27,8 @@ Feature: Get a transfer of a external account
     Then status 200
     And match response == AV2
 
-    Given path 'transferencias', 'externas'
+    Given path 'transferencias', 'externas', AV2
     When method GET
-    And request AV2
     Then status 200
     * def AV3Response = response
     * def transactionId = response.referenceTransactionId
@@ -46,8 +45,8 @@ Feature: Get a transfer of a external account
     And match response.referenceTransactionId == transactionId
     * def amount = response.amount
 
+    Given path 'transferencias', 'externas', CT2
     When method GET
-    And request CT2
     Then status 200
     * def CT3Response = response
 
