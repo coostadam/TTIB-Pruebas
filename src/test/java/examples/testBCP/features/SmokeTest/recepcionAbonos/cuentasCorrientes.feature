@@ -9,6 +9,6 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUC
 Scenario: Desde Otra Entidad en soles hacia Celular BCP como tercero con DNI
 
 #QA-801
-Scenario:  Desde PLIN hacia celular BCP en dólares como tercero con DNI
+Scenario: Desde PLIN hacia celular BCP en dólares como tercero con DNI
 
 
