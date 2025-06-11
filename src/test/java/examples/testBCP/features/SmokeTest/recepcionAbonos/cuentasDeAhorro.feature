@@ -1,6 +1,6 @@
 # QA-791, QA-793 y QA-800
 @smokeTest
-@wip
+
 Feature: Recepción de abonos en cuenta de Ahorro
 
   Background:
@@ -85,8 +85,40 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match response.interbankSettlementAmount == amount
     * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
 
-
-
 # QA-800
   Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUC
+    Given path 'CCE', 'Abono', 'Orden'
+    When method GET
+    Then status 200
+    And match response == dataCT2
+    * match response.currency == "604"
+    * match response.debtorIdCode == "6"
+    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
+    * def debtorCCI = response.debtorCCI
+    * def idInstruction = response.instructionId
+    * def amount = response.interbankSettlementAmount
 
+    Given path 'BCP', 'Abono', idInstruction
+    When method GET
+    Then status 200
+    And match response == dataCT3
+    * match response.currency == "604"
+    * match response.debtorIdCode == "6"
+    * match response.debtorCCI == debtorCCI
+    * def CT3 = response
+
+    Given path 'BCP', 'Abono', 'Respuesta', idInstruction
+    When method POST
+    And request CT3
+    Then status 200
+
+    Given path 'CCE', 'Abono', 'Orden', idInstruction
+    When method GET
+    Then status 200
+    And match response == dataCT5
+    * match response.currency == "604"
+    * match response.debtorIdCode == "6"
+    * match response.debtorCCI == debtorCCI
+    * match response.instructionId = idInstruction
+    * match response.interbankSettlementAmount == amount
+    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
