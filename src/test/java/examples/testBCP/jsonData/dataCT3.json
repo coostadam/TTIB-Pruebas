@@ -1,0 +1,25 @@
+{
+  "CT3": {
+    "debtorParticipantCode": "#string",
+    "creditorParticipantCode": "#string",
+    "responseDate": "#string",
+    "responseTime": "#string",
+    "terminalId": "#string",
+    "retrievalReferenteNumber": "#string",
+    "trace": "#string",
+    "amount": "#number",
+    "currency": "#string",
+    "transactionReference": "##string",
+    "responseCode": "#string",
+    "reasonCode": "##string",
+    "feeAmount": "#number",
+    "settlementDate": "#string",
+    "transactionType": "#string",
+    "debtorCCI": "#string",
+    "creditorCCI": "##string",
+    "creditorCreditCard": "##string",
+    "sameCustomerFlag": "##string",
+    "branchId": "#string",
+    "instructionId": "#string"
+  }
+}

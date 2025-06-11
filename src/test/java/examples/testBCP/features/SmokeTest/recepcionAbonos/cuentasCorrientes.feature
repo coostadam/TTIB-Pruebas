@@ -2,6 +2,9 @@
 @smokeTest
 Feature: Recepción de abonos en Cuentas Corrientes
 
+  Background:
+    * url apiUrl
+
 #QA-795
 Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUC
 
