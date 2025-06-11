@@ -7,6 +7,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * def dataCT2 = read('examples/testBCP/features/SmokeTest/jsonData/dataCT2.json')
     * def dataCT3 = read('examples/testBCP/features/SmokeTest/jsonData/dataCT3.json')
     * def dataCT5 = read('examples/testBCP/features/SmokeTest/jsonData/dataCT5.json')
+
 #QA-795
   Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUC
     Given path 'CCE', 'Abono', 'Orden'
@@ -15,6 +16,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
     And match response == dataCT2
     * match response.currency == "604"
     * match response.debtorIdCode == "6"
+    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.interbankSettlementAmount
@@ -42,6 +44,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.interbankSettlementAmount == amount
+    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
 
 #QA-798
   Scenario: Desde Otra Entidad en soles hacia Celular BCP como tercero con DNI
@@ -51,6 +54,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
     And match response == dataCT2
     * match response.currency == "604"
     * match response.debtorIdCode == "2"
+    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.interbankSettlementAmount
@@ -78,6 +82,8 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.interbankSettlementAmount == amount
+    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
+
 
 #QA-801
   Scenario: Desde PLIN hacia celular BCP en dólares como tercero con DNI
@@ -87,6 +93,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
     And match response == dataCT2
     * match response.currency == "840"
     * match response.debtorIdCode == "2"
+    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.interbankSettlementAmount
@@ -114,5 +121,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.interbankSettlementAmount == amount
+    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
+
 
 
