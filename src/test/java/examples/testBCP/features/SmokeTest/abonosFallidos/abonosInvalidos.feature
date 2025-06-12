@@ -1,45 +1,99 @@
 # QA-748, QA-749, QA-773, QA-772, QA-771, QA-768, QA-767, QA-764
 @smokeTest
-  @wip
+@wip
 Feature: Recepción de abonos no exitosos por datos inválidos
 
   Background:
     * url apiUrl
     * def dataAV2 = read('examples/testBCP/features/SmokeTest/jsonData/dataAV2.json')
+    * def dataMonedaAcreditar = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/dataMonedaAcreditar.json')
+    * def dataCuentaCerrada = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/cuenta_cerrada.json')
+    * def dataInstructionId = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/instruction_duplicado.json')
+    * def dataMontoCero = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/monto_cero.json')
+    * def dataNombreFaltante = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/nombre_faltante.json')
+    * def dataIdReferencia = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/sin_id_referencia.json')
+    * def dataTarjetaCaducada = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/tarjeta_caducada.json')
+    * def dataTipoInvalido = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/tipo_cuenta_invalido.json')
 
 #QA-748
   Scenario: Abono a Tarjeta de Crédito por moneda de la cuenta a acreditar inválida
-   
+    Given path 'QTI1', 'Consulta', 'Cuenta'
+    And request dataMonedaAcreditar
+    When method POST
+    Then status 200
+
+    Given path 'QTI1', 'Consulta', 'Cuenta'
+    When method GET
+    Then status 400
+    And match response.msg == 'Moneda de la cuenta a acreditar inválida'
 
 #QA-749
   Scenario: De otra entidad a tipo de cuenta a acreditar inválido
     Given path 'QTI1', 'Consulta', 'Cuenta'
-    When method GET
+    And request dataTipoInvalido
+    When method POST
     Then status 200
-    * match response == dataAV2
-    * def AV2 = response
 
-    Given path 'QTI1', 'Consulta', 'Cuenta', AV2
+    Given path 'QTI1', 'Consulta', 'Cuenta'
     When method GET
     Then status 400
+    And match response.msg == 'Tipo de cuenta a acreditar inválido'
 
 #QA-773
   Scenario: De otra entidad por nombre de cliente originante faltante
+    Given path 'QTI1', 'Consulta', 'Cuenta'
+    And request dataNombreFaltante
+    When method POST
+    Then status 200
+
+    Given path 'QTI1', 'Consulta', 'Cuenta'
+    When method GET
+    Then status 400
+    And match response.msg == 'Nombre de cliente originante faltante'
 
 #QA-772
   Scenario: De otra entidad por duplicidad en Instruction ID
+    Given path 'QTI1', 'Consulta', 'Cuenta'
+    When method POST
+    And request dataInstructionId
+    Then status 200
 
-#QA-771
+    Given path 'QTI1', 'Consulta', 'Cuenta'
+    When method GET
+    Then status 400
+    And match response.msg == 'Duplicidad en Instruction ID'
+
+#QA-771 Pending
   Scenario: De otra entidad por monto cero
+
 
 #QA-768
   Scenario: De otra entidad a Cuenta a Acreditar Cerrada
+    Given path 'QTI1', 'Consulta', 'Cuenta'
+    When method POST
+    And request dataCuentaCerrada
+    Then status 200
 
-#QA-767
+    Given path 'QTI1', 'Consulta', 'Cuenta'
+    When method GET
+    Then status 400
+    And match response.msg == 'Cuenta a Acreditar Cerrada'
+
+#QA-767 Pending
   Scenario: De otra entidad por Id de Referencia Requerido
+
 
 #QA-764
   Scenario: De otra entidad a Tarjeta Credito caducada del BCP
+    Given path 'QTI1', 'Consulta', 'Cuenta'
+    When method POST
+    And request dataTarjetaCaducada
+    Then status 200
+
+    Given path 'QTI1', 'Consulta', 'Cuenta'
+    When method GET
+    Then status 400
+    And match response.msg == 'Tarjeta de Credito del BCP caducada'
 
 
 
