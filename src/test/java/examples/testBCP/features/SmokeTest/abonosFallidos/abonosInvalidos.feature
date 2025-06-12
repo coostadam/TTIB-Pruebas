@@ -1,6 +1,5 @@
 # QA-748, QA-749, QA-773, QA-772, QA-771, QA-768, QA-767, QA-764
 @smokeTest
-@wip
 Feature: Recepción de abonos no exitosos por datos inválidos
 
   Background:
@@ -63,9 +62,19 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     Then status 400
     And match response.msg == 'INSTRUCTION ID DUPLICADO'
 
-#QA-771 Pending
+#QA-771
   Scenario: De otra entidad por monto cero
+    * call read('examples/testBCP/features/SmokeTest/consultaCuenta/consultaDeCuenta.feature')
 
+    Given path 'QTI2', 'Consulta', 'Cuenta'
+    When method POST
+    And request dataMontoCero
+    Then status 200
+
+    Given path 'QTI2', 'Consulta', 'Cuenta'
+    When method GET
+    Then status 400
+    And match response.msg == 'MONTO CERO'
 
 #QA-768
   Scenario: De otra entidad a Cuenta a Acreditar Cerrada
@@ -79,9 +88,19 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     Then status 400
     And match response.msg == 'CUENTA O TC EXISTENTE PERO CERRADA'
 
-#QA-767 Pending
+#QA-767
   Scenario: De otra entidad por Id de Referencia Requerido
+    * call read('examples/testBCP/features/SmokeTest/consultaCuenta/consultaDeCuenta.feature')
 
+    Given path 'QTI2', 'Consulta', 'Cuenta'
+    When method POST
+    And request dataIdReferencia
+    Then status 200
+
+    Given path 'QTI2', 'Consulta', 'Cuenta'
+    When method GET
+    Then status 400
+    And match response.msg == 'EL REF. ID DE LA CONSULTA ES INVALIDO'
 
 #QA-764
   Scenario: De otra entidad a Tarjeta Credito caducada del BCP
