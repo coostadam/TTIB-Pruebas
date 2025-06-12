@@ -4,9 +4,9 @@ Feature: Recepción de abonos en Cuentas Corrientes
 
   Background:
     * url apiUrl
-    * def dataCT2 = read('examples/testBCP/features/SmokeTest/jsonData/dataCT2.json')
-    * def dataCT3 = read('examples/testBCP/features/SmokeTest/jsonData/dataCT3.json')
-    * def dataCT5 = read('examples/testBCP/features/SmokeTest/jsonData/dataCT5.json')
+    * def dataCT2 = read('examples/testBCP/features/jsonData/dataCT2.json')
+    * def dataCT3 = read('examples/testBCP/features/jsonData/dataCT3.json')
+    * def dataCT5 = read('examples/testBCP/features/jsonData/dataCT5.json')
     * call read('examples/testBCP/features/SmokeTest/consultaCuenta/consultaDeCuenta.feature')
 
 #QA-795

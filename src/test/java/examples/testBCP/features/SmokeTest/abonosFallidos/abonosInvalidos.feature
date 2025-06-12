@@ -3,11 +3,25 @@
   @wip
 Feature: Recepción de abonos no exitosos por datos inválidos
 
+  Background:
+    * url apiUrl
+    * def dataAV2 = read('examples/testBCP/features/SmokeTest/jsonData/dataAV2.json')
+
 #QA-748
   Scenario: Abono a Tarjeta de Crédito por moneda de la cuenta a acreditar inválida
+   
 
 #QA-749
   Scenario: De otra entidad a tipo de cuenta a acreditar inválido
+    Given path 'QTI1', 'Consulta', 'Cuenta'
+    When method GET
+    Then status 200
+    * match response == dataAV2
+    * def AV2 = response
+
+    Given path 'QTI1', 'Consulta', 'Cuenta', AV2
+    When method GET
+    Then status 400
 
 #QA-773
   Scenario: De otra entidad por nombre de cliente originante faltante
