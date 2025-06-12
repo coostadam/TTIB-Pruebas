@@ -8,6 +8,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * def dataCT2 = read('examples/testBCP/features/SmokeTest/jsonData/dataCT2.json')
     * def dataCT3 = read('examples/testBCP/features/SmokeTest/jsonData/dataCT3.json')
     * def dataCT5 = read('examples/testBCP/features/SmokeTest/jsonData/dataCT5.json')
+    * call read('examples/testBCP/features/SmokeTest/consultaCuenta/consultaDeCuenta.feature')
 
 # QA-791
   Scenario: En soles para mismo cliente con RUC
