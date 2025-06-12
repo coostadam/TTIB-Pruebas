@@ -25,7 +25,7 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     Given path 'QTI1', 'Consulta', 'Cuenta'
     When method GET
     Then status 400
-    And match response.msg == 'Moneda de la cuenta a acreditar inválida'
+    And match response.msg == 'MONEDA DIFERENTE A LA CUENTA O TC DESTINO'
 
 #QA-749
   Scenario: De otra entidad a tipo de cuenta a acreditar inválido
@@ -37,7 +37,7 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     Given path 'QTI1', 'Consulta', 'Cuenta'
     When method GET
     Then status 400
-    And match response.msg == 'Tipo de cuenta a acreditar inválido'
+    And match response.msg == 'TIPO DE CUENTA A ACREDITAR INVALIDO'
 
 #QA-773
   Scenario: De otra entidad por nombre de cliente originante faltante
@@ -49,7 +49,7 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     Given path 'QTI1', 'Consulta', 'Cuenta'
     When method GET
     Then status 400
-    And match response.msg == 'Nombre de cliente originante faltante'
+    And match response.msg == 'NOMBRE DE CLIENTE ORIGINANTE FALTANTE'
 
 #QA-772
   Scenario: De otra entidad por duplicidad en Instruction ID
@@ -61,7 +61,7 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     Given path 'QTI1', 'Consulta', 'Cuenta'
     When method GET
     Then status 400
-    And match response.msg == 'Duplicidad en Instruction ID'
+    And match response.msg == 'INSTRUCTION ID DUPLICADO'
 
 #QA-771 Pending
   Scenario: De otra entidad por monto cero
@@ -77,7 +77,7 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     Given path 'QTI1', 'Consulta', 'Cuenta'
     When method GET
     Then status 400
-    And match response.msg == 'Cuenta a Acreditar Cerrada'
+    And match response.msg == 'CUENTA O TC EXISTENTE PERO CERRADA'
 
 #QA-767 Pending
   Scenario: De otra entidad por Id de Referencia Requerido
@@ -93,7 +93,7 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     Given path 'QTI1', 'Consulta', 'Cuenta'
     When method GET
     Then status 400
-    And match response.msg == 'Tarjeta de Credito del BCP caducada'
+    And match response.msg == 'LA TARJETA DE CREDITO INGRESADA SE ENCUENTRA CADUCADA'
 
 
 
