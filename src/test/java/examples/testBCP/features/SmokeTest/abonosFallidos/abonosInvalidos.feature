@@ -1,5 +1,6 @@
 # QA-748, QA-749, QA-773, QA-772, QA-771, QA-768, QA-767, QA-764
 @smokeTest
+  @wip
 Feature: Recepción de abonos no exitosos por datos inválidos
 
 #QA-748

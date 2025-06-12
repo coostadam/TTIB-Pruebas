@@ -84,7 +84,6 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * match response.interbankSettlementAmount == amount
     * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
 
-
 #QA-801
   Scenario: Desde PLIN hacia celular BCP en dólares como tercero con DNI
     Given path 'CCE', 'Abono', 'Orden'
@@ -122,6 +121,3 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * match response.instructionId == idInstruction
     * match response.interbankSettlementAmount == amount
     * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
-
-
-

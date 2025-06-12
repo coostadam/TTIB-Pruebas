@@ -1,0 +1,31 @@
+{
+  "AV2": {
+    "debtorParticipantCode": "#regex 0[0-9]{3}",
+    "creditorParticipantCode": "#regex 0[0-9]{3}",
+    "creationDate": "#regex \\d{8}",
+    "creationTime": "#regex \\d{6}",
+    "terminalId": "#string? _.length == 8",
+    "retrievalReferenteNumber": "#string? _.length == 12",
+    "trace": "#number? _.toString().length == 6",
+    "debtorName": "#string",
+    "debtorId": "#string? _ == '1' || _ == '2' || _ == '3' || _ ==  '4' || _ == '5' || _ == '6'",
+    "debtorIdCode": "#number? _ >= 0 && _ <= 9",
+    "debtorPhoneNumber": "##string",
+    "debtorAddressLine": "##string",
+    "debtorMobileNumber": "#string",
+    "transactionType": "#number? _ == 320 || _ == 325",
+    "channel": "#number? _ == 15 || _ == 91 || _ == 52",
+    "creditorName": "##string",
+    "creditorAddressLine": "##string",
+    "creditorPhoneNumber": "##string",
+    "creditorMobileNumber": "##string",
+    "creditorCCI": "##string",
+    "creditorCreditCard": "##string",
+    "debtorTypeOfPerson": "##string? _ == 'N' || _ == 'J'",
+    "currency": "#number? _ == 604 || _ == 840",
+    "proxyValue": "##string",
+    "proxyType": "##string",
+    "instructionId": "#string? _.length <= 35",
+    "branchId": "#string? _.length <= 35"
+  }
+}
