@@ -18,7 +18,8 @@ Feature: Recepción de abonos en cuenta de Ahorro
     And match response == dataCT2
     * match response.currency == "604"
     * match response.debtorIdCode == "6"
-    * match response.sameCustomerFlag == "M" ## Revisar ya que es un campo opcional
+    ## Revisar ya que es un campo opcional
+    * match response.sameCustomerFlag == "M"
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.interbankSettlementAmount
@@ -46,7 +47,8 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.interbankSettlementAmount == amount
-    * match response.sameCustomerFlag == "M" ## Revisar ya que es un campo opcional
+    ## Revisar ya que es un campo opcional
+    * match response.sameCustomerFlag == "M"
 
 # QA-793
   Scenario: En dólares como tercero con RUC
@@ -56,7 +58,8 @@ Feature: Recepción de abonos en cuenta de Ahorro
     And match response == dataCT2
     * match response.currency == "840"
     * match response.debtorIdCode == "6"
-    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
+    ## Revisar ya que es un campo opcional
+    * match response.sameCustomerFlag == "O"
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.interbankSettlementAmount
@@ -84,7 +87,8 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.interbankSettlementAmount == amount
-    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
+    ## Revisar ya que es un campo opcional
+    * match response.sameCustomerFlag == "O"
 
 # QA-800
   Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUC
@@ -94,7 +98,8 @@ Feature: Recepción de abonos en cuenta de Ahorro
     And match response == dataCT2
     * match response.currency == "604"
     * match response.debtorIdCode == "6"
-    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
+     ## Revisar ya que es un campo opcional
+    * match response.sameCustomerFlag == "O"
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.interbankSettlementAmount
@@ -120,6 +125,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match response.currency == "604"
     * match response.debtorIdCode == "6"
     * match response.debtorCCI == debtorCCI
-    * match response.instructionId = idInstruction
+    * match response.instructionId == idInstruction
     * match response.interbankSettlementAmount == amount
-    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
+    ## Revisar ya que es un campo opcional
+    * match response.sameCustomerFlag == "O"

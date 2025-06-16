@@ -113,9 +113,3 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     When method GET
     Then status 400
     And match response.msg == 'LA TARJETA DE CREDITO INGRESADA SE ENCUENTRA CADUCADA'
-
-
-
-
-
-

@@ -17,7 +17,8 @@ Feature: Recepción de abonos en Cuentas Corrientes
     And match response == dataCT2
     * match response.currency == "604"
     * match response.debtorIdCode == "6"
-    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
+      ## Revisar ya que es un campo opcional
+    * match response.sameCustomerFlag == "O"
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.interbankSettlementAmount
@@ -45,7 +46,8 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.interbankSettlementAmount == amount
-    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
+     ## Revisar ya que es un campo opcional
+    * match response.sameCustomerFlag == "O"
 
 #QA-798
   Scenario: Desde Otra Entidad en soles hacia Celular BCP como tercero con DNI
@@ -55,7 +57,8 @@ Feature: Recepción de abonos en Cuentas Corrientes
     And match response == dataCT2
     * match response.currency == "604"
     * match response.debtorIdCode == "2"
-    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
+    ## Revisar ya que es un campo opcional
+    * match response.sameCustomerFlag == "O"
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.interbankSettlementAmount
@@ -83,7 +86,8 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.interbankSettlementAmount == amount
-    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
+    ## Revisar ya que es un campo opcional
+    * match response.sameCustomerFlag == "O"
 
 #QA-801
   Scenario: Desde PLIN hacia celular BCP en dólares como tercero con DNI
@@ -93,7 +97,8 @@ Feature: Recepción de abonos en Cuentas Corrientes
     And match response == dataCT2
     * match response.currency == "840"
     * match response.debtorIdCode == "2"
-    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
+    ## Revisar ya que es un campo opcional
+    * match response.sameCustomerFlag == "O"
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.interbankSettlementAmount
@@ -121,4 +126,5 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.interbankSettlementAmount == amount
-    * match response.sameCustomerFlag == "O" ## Revisar ya que es un campo opcional
+    ## Revisar ya que es un campo opcional
+    * match response.sameCustomerFlag == "O"
