@@ -1,13 +1,13 @@
-#QA-765, QA-766
-@smokeTest
+#TEST_020, TEST_021
+@integracionTemprana
   @wip
 Feature: Validar el bloqueo de entidad receptora
 
   Background:
     * url apiUrl
 
-# QA-765
+# TEST_020
 Scenario: Después de 8 intentos en AEC (Abono En Cuenta)
 
-# QA-766
+# TEST_021
 Scenario: Después de 8 intentos en PCT (Pago a Cuenta Tarjeta de Crédito)

@@ -1,5 +1,5 @@
-#QA-795, QA-798 y QA-801
-@smokeTest
+#TEST_014, TEST_009 y TEST_011
+@integracionTemprana
 Feature: Recepción de abonos en Cuentas Corrientes
 
   Background:
@@ -9,7 +9,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * def dataCT5 = read('examples/testBCP/features/jsonData/dataCT5.json')
     * call read('examples/testBCP/features/SmokeTest/consultaCuenta/consultaDeCuenta.feature')
 
-#QA-795
+#TEST_014
   Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUC
     Given path 'CCE', 'Abono', 'Orden'
     When method GET
@@ -49,7 +49,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
      ## Revisar ya que es un campo opcional
     * match response.sameCustomerFlag == "O"
 
-#QA-798
+#TEST_009
   Scenario: Desde Otra Entidad en soles hacia Celular BCP como tercero con DNI
     Given path 'CCE', 'Abono', 'Orden'
     When method GET
@@ -89,7 +89,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
     ## Revisar ya que es un campo opcional
     * match response.sameCustomerFlag == "O"
 
-#QA-801
+#TEST_011
   Scenario: Desde PLIN hacia celular BCP en dólares como tercero con DNI
     Given path 'CCE', 'Abono', 'Orden'
     When method GET

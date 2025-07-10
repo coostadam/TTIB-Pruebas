@@ -1,5 +1,5 @@
-# QA-791, QA-793 y QA-800
-@smokeTest
+# TEST_012, TEST_013 y TEST_010
+@integracionTemprana
 
 Feature: Recepción de abonos en cuenta de Ahorro
 
@@ -10,7 +10,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * def dataCT5 = read('examples/testBCP/features/jsonData/dataCT5.json')
     * call read('examples/testBCP/features/SmokeTest/consultaCuenta/consultaDeCuenta.feature')
 
-# QA-791
+# TEST_012
   Scenario: En soles para mismo cliente con RUC
     Given path 'CCE', 'Abono', 'Orden'
     When method GET
@@ -50,7 +50,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
     ## Revisar ya que es un campo opcional
     * match response.sameCustomerFlag == "M"
 
-# QA-793
+# TEST_013
   Scenario: En dólares como tercero con RUC
     Given path 'CCE', 'Abono', 'Orden'
     When method GET
@@ -90,7 +90,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
     ## Revisar ya que es un campo opcional
     * match response.sameCustomerFlag == "O"
 
-# QA-800
+# TEST_010
   Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUC
     Given path 'CCE', 'Abono', 'Orden'
     When method GET

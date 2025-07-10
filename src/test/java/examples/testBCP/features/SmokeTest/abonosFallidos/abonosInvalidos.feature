@@ -1,5 +1,5 @@
-# QA-748, QA-749, QA-773, QA-772, QA-771, QA-768, QA-767, QA-764
-@smokeTest
+# TEST_017, TEST_016, TEST_028, TEST_027, TEST_026, TEST_025, TEST_029, TEST_024
+@integracionTemprana
 Feature: Recepción de abonos no exitosos por datos inválidos
 
   Background:
@@ -14,7 +14,7 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     * def dataTarjetaCaducada = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/tarjeta_caducada.json')
     * def dataTipoInvalido = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/tipo_cuenta_invalido.json')
 
-#QA-748
+#TEST_017
   Scenario: Abono a Tarjeta de Crédito por moneda de la cuenta a acreditar inválida
     Given path 'QTI1', 'Consulta', 'Cuenta'
     And request dataMonedaAcreditar
@@ -26,7 +26,7 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     Then status 400
     And match response.msg == 'MONEDA DIFERENTE A LA CUENTA O TC DESTINO'
 
-#QA-749
+#TEST_016
   Scenario: De otra entidad a tipo de cuenta a acreditar inválido
     Given path 'QTI1', 'Consulta', 'Cuenta'
     And request dataTipoInvalido
@@ -38,7 +38,7 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     Then status 400
     And match response.msg == 'TIPO DE CUENTA A ACREDITAR INVALIDO'
 
-#QA-773
+#TEST_028
   Scenario: De otra entidad por nombre de cliente originante faltante
     Given path 'QTI1', 'Consulta', 'Cuenta'
     And request dataNombreFaltante
@@ -50,7 +50,7 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     Then status 400
     And match response.msg == 'NOMBRE DE CLIENTE ORIGINANTE FALTANTE'
 
-#QA-772
+#TEST_027
   Scenario: De otra entidad por duplicidad en Instruction ID
     Given path 'QTI1', 'Consulta', 'Cuenta'
     When method POST
@@ -62,7 +62,7 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     Then status 400
     And match response.msg == 'INSTRUCTION ID DUPLICADO'
 
-#QA-771
+#TEST_026
   Scenario: De otra entidad por monto cero
     * call read('examples/testBCP/features/SmokeTest/consultaCuenta/consultaDeCuenta.feature')
 
@@ -76,7 +76,7 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     Then status 400
     And match response.msg == 'MONTO CERO'
 
-#QA-768
+#TEST_025
   Scenario: De otra entidad a Cuenta a Acreditar Cerrada
     Given path 'QTI1', 'Consulta', 'Cuenta'
     When method POST
@@ -88,7 +88,7 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     Then status 400
     And match response.msg == 'CUENTA O TC EXISTENTE PERO CERRADA'
 
-#QA-767
+#TEST_029
   Scenario: De otra entidad por Id de Referencia Requerido
     * call read('examples/testBCP/features/SmokeTest/consultaCuenta/consultaDeCuenta.feature')
 
@@ -102,7 +102,7 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     Then status 400
     And match response.msg == 'EL REF. ID DE LA CONSULTA ES INVALIDO'
 
-#QA-764
+#TEST_024
   Scenario: De otra entidad a Tarjeta Credito caducada del BCP
     Given path 'QTI1', 'Consulta', 'Cuenta'
     When method POST
