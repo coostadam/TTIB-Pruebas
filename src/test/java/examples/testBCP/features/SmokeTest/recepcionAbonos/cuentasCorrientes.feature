@@ -16,7 +16,11 @@ Feature: Recepción de abonos en Cuentas Corrientes
 
 #TEST_014
   Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUC
-    * match creditorIdCode == 6
+    * match creditorIdCode == 6  
+    * match currency == 604
+    * match channel == 91 
+    * match sameCustomerFlag == 'O'
+    * match tranasactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
     When method GET
@@ -59,7 +63,11 @@ Feature: Recepción de abonos en Cuentas Corrientes
 
 #TEST_009
   Scenario: Desde Otra Entidad en soles hacia Celular BCP como tercero con DNI
-    * match creditorIdCode == 2
+    * match creditorIdCode == 2 
+    * match currency == 604
+    * match channel == 91 
+    * match sameCustomerFlag == 'O'
+    * match tranasactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
     When method GET
@@ -102,7 +110,11 @@ Feature: Recepción de abonos en Cuentas Corrientes
 
 #TEST_011
   Scenario: Desde PLIN hacia celular BCP en dólares como tercero con DNI
-    * match creditorIdCode == 2
+    * match creditorIdCode == 2  
+    * match currency == 840
+    * match channel == 91 
+    * match sameCustomerFlag == 'O'
+    * match tranasactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
     When method GET

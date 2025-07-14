@@ -71,7 +71,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match creditorIdCode == 6  
     * match currency == 840
     * match channel == 15  
-    * match sameCustomerFlag == '0'
+    * match sameCustomerFlag == 'O'
     * match tranasactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -119,7 +119,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match creditorIdCode == 6  
     * match currency == 604
     * match channel == 91  
-    * match sameCustomerFlag == '0'
+    * match sameCustomerFlag == 'O'
     * match tranasactionType == "320"
     
     Given path 'achoperations', 'exchange', 'mock'
