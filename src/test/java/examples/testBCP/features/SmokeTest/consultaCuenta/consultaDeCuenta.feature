@@ -21,3 +21,4 @@ Feature: Recepción de consulta de cuenta
     Then status 200
     And match response == dataAV3
     * def instructionId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
