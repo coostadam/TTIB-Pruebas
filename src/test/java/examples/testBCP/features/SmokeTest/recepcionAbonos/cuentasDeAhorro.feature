@@ -4,128 +4,160 @@
 Feature: Recepción de abonos en cuenta de Ahorro
 
   Background:
-    * url apiUrl
+    * def dataAV2 = read('examples/testBCP/features/SmokeTest/jsonData/dataAV2.json')
+    * def dataAV3 = read('examples/testBCP/features/SmokeTest/jsonData/dataAV3.json')
     * def dataCT2 = read('examples/testBCP/features/jsonData/dataCT2.json')
     * def dataCT3 = read('examples/testBCP/features/jsonData/dataCT3.json')
     * def dataCT5 = read('examples/testBCP/features/jsonData/dataCT5.json')
-    * call read('examples/testBCP/features/SmokeTest/consultaCuenta/consultaDeCuenta.feature')
+    * def result = call read('examples/testBCP/features/SmokeTest/consultaCuenta/consultaDeCuenta.feature')
+    * def achoperationsId = result.instructionId
+    * def creditorIdCode = result.creditorIdCode
+    * def currency = result.currency
+    * def channel = result.channel 
+    * def transactionType = result.transactionType
 
 # TEST_012
-  Scenario: En soles para mismo cliente con RUC
-    Given path 'CCE', 'Abono', 'Orden'
+  Scenario: En soles para el mismo cliente con RUC
+    * match creditorIdCode == 6  
+    * match currency == 604
+    * match channel == 91 
+    * match sameCustomerFlag == 'M'
+    * match tranasactionType == "320"
+
+    
+    Given path 'achoperations', 'exchange', 'mock'
     When method GET
     Then status 200
     And match response == dataCT2
-    * match response.currency == "604"
-    * match response.debtorIdCode == "6"
-    ## Revisar ya que es un campo opcional
-    * match response.sameCustomerFlag == "M"
+    * def currency = response.currency
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
-    * def amount = response.interbankSettlementAmount
+    * def amount = response.amount
+    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def CT2 = response
+    
 
-    Given path 'BCP', 'Abono', idInstruction
-    When method GET
+    Given path 'achoperations', achoperationsId, 'exchange'
+    When method POST
+    And request CT2
     Then status 200
     And match response == dataCT3
-    * match response.currency == "604"
-    * match response.debtorIdCode == "6"
     * match response.debtorCCI == debtorCCI
+    * match response.amount == amount
+    * match response.instructionId == idInstruction
+    * match response.currency == currency
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
     * def CT3 = response
 
-    Given path 'BCP', 'Abono', 'Respuesta', idInstruction
-    When method POST
-    And request CT3
-    Then status 200
-
-    Given path 'CCE', 'Abono', 'Orden', idInstruction
+    Given path 'confirmation-of-payment', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
-    * match response.currency == "604"
-    * match response.debtorIdCode == "6"
+    * match response.currency == currency
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
-    * match response.interbankSettlementAmount == amount
-    ## Revisar ya que es un campo opcional
-    * match response.sameCustomerFlag == "M"
+    * match response.amount == amount
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT5 = response
+
+    Given path 'confirmation-of-payment'
+    When method POST
+    And request CT5
+    Then status 204
+
 
 # TEST_013
   Scenario: En dólares como tercero con RUC
-    Given path 'CCE', 'Abono', 'Orden'
+    * match creditorIdCode == 6  
+    * match currency == 840
+    * match channel == 15  
+    * match sameCustomerFlag == '0'
+    * match tranasactionType == "320"
+
+    Given path 'achoperations', 'exchange', 'mock'
     When method GET
     Then status 200
     And match response == dataCT2
-    * match response.currency == "840"
-    * match response.debtorIdCode == "6"
-    ## Revisar ya que es un campo opcional
-    * match response.sameCustomerFlag == "O"
+    * def currency = response.currency
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
-    * def amount = response.interbankSettlementAmount
+    * def amount = response.amount
+    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def CT2 = response
+    
 
-    Given path 'BCP', 'Abono', idInstruction
-    When method GET
+    Given path 'achoperations', achoperationsId, 'exchange'
+    When method POST
+    And request CT2
     Then status 200
     And match response == dataCT3
-    * match response.currency == "840"
-    * match response.debtorIdCode == "6"
     * match response.debtorCCI == debtorCCI
+    * match response.amount == amount
+    * match response.instructionId == idInstruction
+    * match response.currency == currency
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
     * def CT3 = response
 
-    Given path 'BCP', 'Abono', 'Respuesta', idInstruction
-    When method POST
-    And request CT3
-    Then status 200
-
-    Given path 'CCE', 'Abono', 'Orden', idInstruction
+    Given path 'confirmation-of-payment', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
-    * match response.currency == "840"
-    * match response.debtorIdCode == "6"
+    * match response.currency == currency
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
-    * match response.interbankSettlementAmount == amount
-    ## Revisar ya que es un campo opcional
-    * match response.sameCustomerFlag == "O"
+    * match response.amount == amount
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT5 = response
+
+    Given path 'confirmation-of-payment'
+    When method POST
+    And request CT5
+    Then status 204
 
 # TEST_010
   Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUC
-    Given path 'CCE', 'Abono', 'Orden'
+    * match creditorIdCode == 6  
+    * match currency == 604
+    * match channel == 91  
+    * match sameCustomerFlag == '0'
+    * match tranasactionType == "320"
+    
+    Given path 'achoperations', 'exchange', 'mock'
     When method GET
     Then status 200
     And match response == dataCT2
-    * match response.currency == "604"
-    * match response.debtorIdCode == "6"
-     ## Revisar ya que es un campo opcional
-    * match response.sameCustomerFlag == "O"
+    * def currency = response.currency
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
-    * def amount = response.interbankSettlementAmount
+    * def amount = response.amount
+    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def CT2 = response
+    
 
-    Given path 'BCP', 'Abono', idInstruction
-    When method GET
+    Given path 'achoperations', achoperationsId, 'exchange'
+    When method POST
+    And request CT2
     Then status 200
     And match response == dataCT3
-    * match response.currency == "604"
-    * match response.debtorIdCode == "6"
     * match response.debtorCCI == debtorCCI
+    * match response.amount == amount
+    * match response.instructionId == idInstruction
+    * match response.currency == currency
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
     * def CT3 = response
 
-    Given path 'BCP', 'Abono', 'Respuesta', idInstruction
-    When method POST
-    And request CT3
-    Then status 200
-
-    Given path 'CCE', 'Abono', 'Orden', idInstruction
+    Given path 'confirmation-of-payment', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
-    * match response.currency == "604"
-    * match response.debtorIdCode == "6"
+    * match response.currency == currency
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
-    * match response.interbankSettlementAmount == amount
-    ## Revisar ya que es un campo opcional
-    * match response.sameCustomerFlag == "O"
+    * match response.amount == amount
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT5 = response
+
+    Given path 'confirmation-of-payment'
+    When method POST
+    And request CT5
+    Then status 204
