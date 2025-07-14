@@ -23,7 +23,6 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match channel == 91 
     * match sameCustomerFlag == 'M'
     * match tranasactionType == "320"
-
     
     Given path 'achoperations', 'exchange', 'mock'
     When method GET
@@ -35,7 +34,6 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * def amount = response.amount
     * def retrievalReferenteNumber = response.retrievalReferenceNumber
     * def CT2 = response
-    
 
     Given path 'achoperations', achoperationsId, 'exchange'
     When method POST
@@ -84,7 +82,6 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * def amount = response.amount
     * def retrievalReferenteNumber = response.retrievalReferenceNumber
     * def CT2 = response
-    
 
     Given path 'achoperations', achoperationsId, 'exchange'
     When method POST
@@ -132,7 +129,6 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * def amount = response.amount
     * def retrievalReferenteNumber = response.retrievalReferenceNumber
     * def CT2 = response
-    
 
     Given path 'achoperations', achoperationsId, 'exchange'
     When method POST
