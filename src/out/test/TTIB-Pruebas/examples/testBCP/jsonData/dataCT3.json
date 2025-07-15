@@ -1,0 +1,25 @@
+{
+  "CT3": {
+    "debtorParticipantCode": "#regex 0[0-9]{3}",
+    "creditorParticipantCode": "#regex 0[0-9]{3}",
+    "responseDate": "#string? _.length <= 8",
+    "responseTime": "#string<? _.length <= 6",
+    "terminalId": "#string? _.length == 8",
+    "retrievalReferenteNumber": "#string? _.length == 12",
+    "trace": "#string? _.length == 6",
+    "amount": "#number",
+    "currency": "#string? _ == '604' || _ == '840'",
+    "transactionReference": "##string' _.length <= 25",
+    "responseCode": "#string? _ == '00' || _ == '05'",
+    "reasonCode": "##string? _.length == 4",
+    "feeAmount": "#number",
+    "settlementDate": "#string? _.length <= 8",
+    "transactionType": "#string? _ == '320' || _ == '325'",
+    "debtorCCI": "#string? _.length <= 20",
+    "creditorCCI": "##string? _.length <= 20",
+    "creditorCreditCard": "##string? _.length <= 20",
+    "sameCustomerFlag": "##string? _ == 'M' || _ == 'O'",
+    "branchId": "#string? _.length <= 35",
+    "instructionId": "#string? _.length <= 35"
+  }
+}

@@ -4,6 +4,9 @@ Feature: Recepción de consulta de cuenta
     * url apiUrl
     * def dataAV2 = read('examples/testBCP/features/SmokeTest/jsonData/dataAV2.json')
     * def dataAV3 = read('examples/testBCP/features/SmokeTest/jsonData/dataAV3.json')
+    * header Authorization = 'Bearer ' + token
+    * header Request-ID = requestId
+    * header Ocp-Apim-Subscription-Key = subscriptionKey
 
   Scenario: Consulta de una cuenta
     Given path 'achoperations', 'iniciate', 'mock'
@@ -19,6 +22,3 @@ Feature: Recepción de consulta de cuenta
     And match response == dataAV3
     * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
-    * def currency = response.currency
-    * def channel = response.channel
-    * def transactionType = response.transactionType

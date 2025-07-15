@@ -22,11 +22,5 @@ function fn() {
   var accessToken = karate.callSingle('classpath:examples/conduitApp/helpers/createToken.feature', config).authToken;
   karate.configure('headers', {Authorization: 'Token ' + accessToken});
 
-  karate.configure('headers', {
-    Authorization: 'Bearer ' + accessToken,
-    'Request-ID': requestId,
-    'Ocp-Apim-Subscription-Key': subscriptionKey
-  });
-
   return config;
 }

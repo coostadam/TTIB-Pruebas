@@ -13,6 +13,9 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * def result = call read('examples/testBCP/features/SmokeTest/consultaCuenta/consultaDeCuenta.feature')
     * def achoperationsId = result.instructionId
     * def creditorIdCode = result.creditorIdCode
+    * def currency = result.currency
+    * def channel = result.channel
+    * def transactionType = result.transactionType
 
 #TEST_014
   Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUC
@@ -20,7 +23,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * match currency == 604
     * match channel == 91 
     * match sameCustomerFlag == 'O'
-    * match tranasactionType == "320"
+    * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
     When method GET
@@ -67,7 +70,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * match currency == 604
     * match channel == 91 
     * match sameCustomerFlag == 'O'
-    * match tranasactionType == "320"
+    * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
     When method GET
@@ -114,7 +117,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * match currency == 840
     * match channel == 91 
     * match sameCustomerFlag == 'O'
-    * match tranasactionType == "320"
+    * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
     When method GET

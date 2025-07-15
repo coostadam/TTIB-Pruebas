@@ -22,7 +22,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match currency == 604
     * match channel == 91 
     * match sameCustomerFlag == 'M'
-    * match transactionType == "320"
+    * match tranasactionType == "320"
     
     Given path 'achoperations', 'exchange', 'mock'
     When method GET
