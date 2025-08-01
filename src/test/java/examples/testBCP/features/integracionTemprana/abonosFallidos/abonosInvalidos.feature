@@ -4,15 +4,15 @@ Feature: Recepción de abonos no exitosos por datos inválidos
 
   Background:
     * url apiUrl
-    * def dataAV2 = read('examples/testBCP/features/SmokeTest/jsonData/dataAV2.json')
-    * def dataMonedaAcreditar = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/dataMonedaAcreditar.json')
-    * def dataCuentaCerrada = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/cuenta_cerrada.json')
-    * def dataInstructionId = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/instruction_duplicado.json')
-    * def dataMontoCero = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/monto_cero.json')
-    * def dataNombreFaltante = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/nombre_faltante.json')
-    * def dataIdReferencia = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/sin_id_referencia.json')
-    * def dataTarjetaCaducada = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/tarjeta_caducada.json')
-    * def dataTipoInvalido = read('examples/testBCP/features/SmokeTest/jsonData/invalidData/tipo_cuenta_invalido.json')
+    * def dataAV2 = read('examples/testBCP/jsonData/dataAV2.json')
+    * def dataMonedaAcreditar = read('examples/testBCP/jsonData/invalidData/dataMonedaAcreditar.json')
+    * def dataCuentaCerrada = read('examples/testBCP/jsonData/invalidData/cuenta_cerrada.json')
+    * def dataInstructionId = read('examples/testBCP/jsonData/invalidData/instruction_duplicado.json')
+    * def dataMontoCero = read('examples/testBCP/jsonData/invalidData/monto_cero.json')
+    * def dataNombreFaltante = read('examples/testBCP/jsonData/invalidData/nombre_faltante.json')
+    * def dataIdReferencia = read('examples/testBCP/jsonData/invalidData/sin_id_referencia.json')
+    * def dataTarjetaCaducada = read('examples/testBCP/jsonData/invalidData/tarjeta_caducada.json')
+    * def dataTipoInvalido = read('examples/testBCP/jsonData/invalidData/tipo_cuenta_invalido.json')
 
 #TEST_017
   Scenario: Abono a Tarjeta de Crédito por moneda de la cuenta a acreditar inválida
@@ -64,7 +64,7 @@ Feature: Recepción de abonos no exitosos por datos inválidos
 
 #TEST_026
   Scenario: De otra entidad por monto cero
-    * call read('examples/testBCP/features/SmokeTest/consultaCuenta/consultaDeCuenta.feature')
+    * call read('examples/testBCP/features/integracionTemprana/consultaCuenta/consultaDeCuenta.feature')
 
     Given path 'QTI2', 'Consulta', 'Cuenta'
     When method POST
@@ -90,7 +90,7 @@ Feature: Recepción de abonos no exitosos por datos inválidos
 
 #TEST_029
   Scenario: De otra entidad por Id de Referencia Requerido
-    * call read('examples/testBCP/features/SmokeTest/consultaCuenta/consultaDeCuenta.feature')
+    * call read('examples/testBCP/features/integracionTemprana/consultaCuenta/consultaDeCuenta.feature')
 
     Given path 'QTI2', 'Consulta', 'Cuenta'
     When method POST
