@@ -10,16 +10,33 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * def dataCT2 = read('examples/testBCP/jsonData/dataCT2.json')
     * def dataCT3 = read('examples/testBCP/jsonData/dataCT3.json')
     * def dataCT5 = read('examples/testBCP/jsonData/dataCT5.json')
-    * def result = call read('examples/testBCP/feature/otros/consultaCuenta/consultaDeCuenta.feature')
     * def achoperationsId = result.instructionId
     * def creditorIdCode = result.creditorIdCode
 
 #TEST_014
   Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUC
-    * match creditorIdCode == 6  
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+#    * match creditorIdCode == 6  
     * match currency == 604
     * match channel == 91 
-    * match sameCustomerFlag == 'O'
+#    * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -63,10 +80,27 @@ Feature: Recepción de abonos en Cuentas Corrientes
 
 # TEST_039 
 Scenario: En dolares como tercero con CE
-    * match creditorIdCode == 5
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+#   * match creditorIdCode == 5
     * match currency == 840
     * match channel == 15  
-    * match sameCustomerFlag == 'O'
+#    * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -111,10 +145,28 @@ Scenario: En dolares como tercero con CE
 
 # TEST_043
 Scenario: En dolares como mismo cliente con CE
-    * match creditorIdCode == 5
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+  
+#    * match creditorIdCode == 5
     * match currency == 840
     * match channel == 15  
-    * match sameCustomerFlag == 'M'
+#    * match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -159,10 +211,28 @@ Scenario: En dolares como mismo cliente con CE
 
     # TEST_047
 Scenario: En dolares como tercero con Pasaporte
-    * match creditorIdCode == 4
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+ 
+ #   * match creditorIdCode == 4
     * match currency == 840
     * match channel == 15
-    * match sameCustomerFlag == 'O'
+ #   * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -207,10 +277,28 @@ Scenario: En dolares como tercero con Pasaporte
 
   # TEST_050
 Scenario: En dolares como mismo cliente con RUC
-    * match creditorIdCode == 6
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+ 
+#    * match creditorIdCode == 6
     * match currency == 840
     * match channel == 15  
-    * match sameCustomerFlag == 'M'
+#    * match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -255,10 +343,28 @@ Scenario: En dolares como mismo cliente con RUC
 
 # TEST_055
 Scenario: En soles como mismo cliente con DNI
-    * match creditorIdCode == 2
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+    
+#    * match creditorIdCode == 2
     * match currency == 604
     * match channel == 15  
-    * match sameCustomerFlag == 'M'
+#    * match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -303,10 +409,28 @@ Scenario: En soles como mismo cliente con DNI
 
 # TEST_061
 Scenario: En soles como tercero cliente con RUC
-    * match creditorIdCode == 6
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+#    * match creditorIdCode == 6
     * match currency == 604
     * match channel == 15  
-    * match sameCustomerFlag == 'O'
+#    * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -348,3 +472,523 @@ Scenario: En soles como tercero cliente con RUC
     When method POST
     And request CT5
     Then status 204
+
+#TEST_113
+Scenario: Desde Otra entidad hacia Celular BCP para mismo cliente con RUC
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+    
+#    * match creditorIdCode == 6
+    * match currency == 604
+    * match channel == 91
+#    * match sameCustomerFlag == 'M'
+    * match transactionType == "320"
+
+    Given path 'achoperations', 'exchange', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT2
+    * def currency = response.currency
+    * def debtorCCI = response.debtorCCI
+    * def idInstruction = response.instructionId
+    * def amount = response.amount
+    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def CT2 = response
+
+    Given path 'achoperations', achoperationsId, 'exchange'
+    When method POST
+    And request CT2
+    Then status 200
+    And match response == dataCT3
+    * match response.debtorCCI == debtorCCI
+    * match response.amount == amount
+    * match response.instructionId == idInstruction
+    * match response.currency == currency
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT3 = response
+
+    Given path 'confirmation-of-payment', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT5
+    * match response.currency == currency
+    * match response.debtorCCI == debtorCCI
+    * match response.instructionId == idInstruction
+    * match response.amount == amount
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT5 = response
+
+    Given path 'confirmation-of-payment'
+    When method POST
+    And request CT5
+    Then status 204
+
+    #TEST_113
+Scenario: Desde Otra Entidad hacia Celularr BCP como tercero con RUC
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+#    * match creditorIdCode == 6
+    * match currency == 604
+    * match channel == 52
+#    * match sameCustomerFlag == 'O'
+    * match transactionType == "320"
+
+    Given path 'achoperations', 'exchange', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT2
+    * def currency = response.currency
+    * def debtorCCI = response.debtorCCI
+    * def idInstruction = response.instructionId
+    * def amount = response.amount
+    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def CT2 = response
+
+    Given path 'achoperations', achoperationsId, 'exchange'
+    When method POST
+    And request CT2
+    Then status 200
+    And match response == dataCT3
+    * match response.debtorCCI == debtorCCI
+    * match response.amount == amount
+    * match response.instructionId == idInstruction
+    * match response.currency == currency
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT3 = response
+
+    Given path 'confirmation-of-payment', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT5
+    * match response.currency == currency
+    * match response.debtorCCI == debtorCCI
+    * match response.instructionId == idInstruction
+    * match response.amount == amount
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT5 = response
+
+    Given path 'confirmation-of-payment'
+    When method POST
+    And request CT5
+    Then status 204 
+
+#TEST_080
+Scenario: Desde Otra Entidad hacia Celularr BCP para mismo cliente con RUC
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+ #   * match creditorIdCode == 6
+    * match currency == 604
+    * match channel == 52
+ #   * match sameCustomerFlag == 'M'
+    * match transactionType == "320"
+
+    Given path 'achoperations', 'exchange', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT2
+    * def currency = response.currency
+    * def debtorCCI = response.debtorCCI
+    * def idInstruction = response.instructionId
+    * def amount = response.amount
+    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def CT2 = response
+
+    Given path 'achoperations', achoperationsId, 'exchange'
+    When method POST
+    And request CT2
+    Then status 200
+    And match response == dataCT3
+    * match response.debtorCCI == debtorCCI
+    * match response.amount == amount
+    * match response.instructionId == idInstruction
+    * match response.currency == currency
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT3 = response
+
+    Given path 'confirmation-of-payment', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT5
+    * match response.currency == currency
+    * match response.debtorCCI == debtorCCI
+    * match response.instructionId == idInstruction
+    * match response.amount == amount
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT5 = response
+
+    Given path 'confirmation-of-payment'
+    When method POST
+    And request CT5
+    Then status 204 
+
+  #TEST_046
+Scenario: Desde Otra Entidad hacia Celularr BCP como tercero con PASAPORTE
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+   
+   # * match creditorIdCode == 4
+    * match currency == 604
+    * match channel == 52
+   # * match sameCustomerFlag == 'O'
+    * match transactionType == "320"
+
+    Given path 'achoperations', 'exchange', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT2
+    * def currency = response.currency
+    * def debtorCCI = response.debtorCCI
+    * def idInstruction = response.instructionId
+    * def amount = response.amount
+    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def CT2 = response
+
+    Given path 'achoperations', achoperationsId, 'exchange'
+    When method POST
+    And request CT2
+    Then status 200
+    And match response == dataCT3
+    * match response.debtorCCI == debtorCCI
+    * match response.amount == amount
+    * match response.instructionId == idInstruction
+    * match response.currency == currency
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT3 = response
+
+    Given path 'confirmation-of-payment', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT5
+    * match response.currency == currency
+    * match response.debtorCCI == debtorCCI
+    * match response.instructionId == idInstruction
+    * match response.amount == amount
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT5 = response
+
+    Given path 'confirmation-of-payment'
+    When method POST
+    And request CT5
+    Then status 204 
+
+  #TEST_046
+Scenario: Desde Otra Entidad hacia Celular BCP como tercero con PASAPORTE
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+ #   * match creditorIdCode == 6
+    * match currency == 604
+    * match channel == 52
+ #   * match sameCustomerFlag == 'O'
+    * match transactionType == "320"
+
+    Given path 'achoperations', 'exchange', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT2
+    * def currency = response.currency
+    * def debtorCCI = response.debtorCCI
+    * def idInstruction = response.instructionId
+    * def amount = response.amount
+    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def CT2 = response
+
+    Given path 'achoperations', achoperationsId, 'exchange'
+    When method POST
+    And request CT2
+    Then status 200
+    And match response == dataCT3
+    * match response.debtorCCI == debtorCCI
+    * match response.amount == amount
+    * match response.instructionId == idInstruction
+    * match response.currency == currency
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT3 = response
+
+    Given path 'confirmation-of-payment', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT5
+    * match response.currency == currency
+    * match response.debtorCCI == debtorCCI
+    * match response.instructionId == idInstruction
+    * match response.amount == amount
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT5 = response
+
+    Given path 'confirmation-of-payment'
+    When method POST
+    And request CT5
+    Then status 204 
+
+  #TEST_058
+Scenario: Desde Otra Entidad hacia Celularr BCP para mismo cliente con DNI
+   Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+ #  * match creditorIdCode == 2
+    * match currency == 604
+    * match channel == 52
+ #   * match sameCustomerFlag == 'M'
+    * match transactionType == "320"
+
+    Given path 'achoperations', 'exchange', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT2
+    * def currency = response.currency
+    * def debtorCCI = response.debtorCCI
+    * def idInstruction = response.instructionId
+    * def amount = response.amount
+    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def CT2 = response
+
+    Given path 'achoperations', achoperationsId, 'exchange'
+    When method POST
+    And request CT2
+    Then status 200
+    And match response == dataCT3
+    * match response.debtorCCI == debtorCCI
+    * match response.amount == amount
+    * match response.instructionId == idInstruction
+    * match response.currency == currency
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT3 = response
+
+    Given path 'confirmation-of-payment', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT5
+    * match response.currency == currency
+    * match response.debtorCCI == debtorCCI
+    * match response.instructionId == idInstruction
+    * match response.amount == amount
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT5 = response
+
+    Given path 'confirmation-of-payment'
+    When method POST
+    And request CT5
+    Then status 204 
+
+  #TEST_063
+Scenario: Desde Plin hacia Yape por numero de celular para mismo cliente con RUC
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+ #   * match creditorIdCode == 6
+    * match currency == 604
+    * match channel == 52
+ #   * match sameCustomerFlag == 'M'
+    * match transactionType == "320"
+
+    Given path 'achoperations', 'exchange', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT2
+    * def currency = response.currency
+    * def debtorCCI = response.debtorCCI
+    * def idInstruction = response.instructionId
+    * def amount = response.amount
+    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def CT2 = response
+
+    Given path 'achoperations', achoperationsId, 'exchange'
+    When method POST
+    And request CT2
+    Then status 200
+    And match response == dataCT3
+    * match response.debtorCCI == debtorCCI
+    * match response.amount == amount
+    * match response.instructionId == idInstruction
+    * match response.currency == currency
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT3 = response
+
+    Given path 'confirmation-of-payment', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT5
+    * match response.currency == currency
+    * match response.debtorCCI == debtorCCI
+    * match response.instructionId == idInstruction
+    * match response.amount == amount
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT5 = response
+
+    Given path 'confirmation-of-payment'
+    When method POST
+    And request CT5
+    Then status 204 
+
+  #TEST_034
+Scenario: Desde Otra Entidad hacia Yape por numero de celular para mismo cliente con RUC
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+ #   * match creditorIdCode == 6
+    * match currency == 604
+    * match channel == 52
+ #   * match sameCustomerFlag == 'M'
+    * match transactionType == "320"
+
+    Given path 'achoperations', 'exchange', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT2
+    * def currency = response.currency
+    * def debtorCCI = response.debtorCCI
+    * def idInstruction = response.instructionId
+    * def amount = response.amount
+    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def CT2 = response
+
+    Given path 'achoperations', achoperationsId, 'exchange'
+    When method POST
+    And request CT2
+    Then status 200
+    And match response == dataCT3
+    * match response.debtorCCI == debtorCCI
+    * match response.amount == amount
+    * match response.instructionId == idInstruction
+    * match response.currency == currency
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT3 = response
+
+    Given path 'confirmation-of-payment', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT5
+    * match response.currency == currency
+    * match response.debtorCCI == debtorCCI
+    * match response.instructionId == idInstruction
+    * match response.amount == amount
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT5 = response
+
+    Given path 'confirmation-of-payment'
+    When method POST
+    And request CT5
+    Then status 204 

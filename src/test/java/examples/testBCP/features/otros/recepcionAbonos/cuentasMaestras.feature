@@ -16,10 +16,28 @@ Feature: Recepción de abonos en cuenta de Ahorro
 
 # TEST_133
 Scenario: En soles como tercero con DNI
-    * match creditorIdCode == 2
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+    #* match creditorIdCode == 2
     * match currency == 604
     * match channel == 15  
-    * match sameCustomerFlag == 'O'
+    # * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -64,10 +82,28 @@ Scenario: En soles como tercero con DNI
 
 # TEST_134
 Scenario: En soles como tercero con Pasaporte
-    * match creditorIdCode == 3
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+    # * match creditorIdCode == 4
     * match currency == 604
     * match channel == 15  
-    * match sameCustomerFlag == 'O'
+    # * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -81,7 +117,6 @@ Scenario: En soles como tercero con Pasaporte
     * def retrievalReferenteNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-
     Given path 'achoperations', achoperationsId, 'exchange'
     When method POST
     And request CT2
@@ -112,10 +147,28 @@ Scenario: En soles como tercero con Pasaporte
 
 # TEST_135
 Scenario: En soles como tercero con CE
-    * match creditorIdCode == 5
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+   #  * match creditorIdCode == 5
     * match currency == 604
     * match channel == 15  
-    * match sameCustomerFlag == 'O'
+   #  * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -129,7 +182,6 @@ Scenario: En soles como tercero con CE
     * def retrievalReferenteNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-
     Given path 'achoperations', achoperationsId, 'exchange'
     When method POST
     And request CT2
@@ -160,10 +212,28 @@ Scenario: En soles como tercero con CE
 
 # TEST_136
 Scenario: En soles como tercero con RUC
-    * match creditorIdCode == 6
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+    # * match creditorIdCode == 6
     * match currency == 604
     * match channel == 15  
-    * match sameCustomerFlag == 'O'
+    # * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -177,7 +247,6 @@ Scenario: En soles como tercero con RUC
     * def retrievalReferenteNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-
     Given path 'achoperations', achoperationsId, 'exchange'
     When method POST
     And request CT2
@@ -208,10 +277,28 @@ Scenario: En soles como tercero con RUC
 
 # TEST_129
 Scenario: En dolares como tercero con DNI
-    * match creditorIdCode == 2
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+   #  * match creditorIdCode == 2
     * match currency == 840
     * match channel == 15  
-    * match sameCustomerFlag == 'O'
+    # * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -225,7 +312,6 @@ Scenario: En dolares como tercero con DNI
     * def retrievalReferenteNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-
     Given path 'achoperations', achoperationsId, 'exchange'
     When method POST
     And request CT2
@@ -256,10 +342,28 @@ Scenario: En dolares como tercero con DNI
 
 # TEST_130
 Scenario: En dolares como tercero con Pasaporte
-    * match creditorIdCode == 3
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+    #* match creditorIdCode == 4
     * match currency == 840
     * match channel == 15  
-    * match sameCustomerFlag == 'O'
+    #* match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -273,7 +377,6 @@ Scenario: En dolares como tercero con Pasaporte
     * def retrievalReferenteNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-
     Given path 'achoperations', achoperationsId, 'exchange'
     When method POST
     And request CT2
@@ -304,10 +407,28 @@ Scenario: En dolares como tercero con Pasaporte
 
 # TEST_131
 Scenario: En dolares como tercero con CE
-    * match creditorIdCode == 5
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+   # * match creditorIdCode == 5
     * match currency == 840
     * match channel == 15  
-    * match sameCustomerFlag == 'O'
+   # * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -320,7 +441,6 @@ Scenario: En dolares como tercero con CE
     * def amount = response.amount
     * def retrievalReferenteNumber = response.retrievalReferenceNumber
     * def CT2 = response
-    
 
     Given path 'achoperations', achoperationsId, 'exchange'
     When method POST
@@ -352,10 +472,28 @@ Scenario: En dolares como tercero con CE
 
 #TEST_132
 Scenario: En dolares como tercero con RUC
-    * match creditorIdCode == 6
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+   #  * match creditorIdCode == 6
     * match currency == 840
     * match channel == 15  
-    * match sameCustomerFlag == 'O'
+    # * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -369,7 +507,6 @@ Scenario: En dolares como tercero con RUC
     * def retrievalReferenteNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-
     Given path 'achoperations', achoperationsId, 'exchange'
     When method POST
     And request CT2

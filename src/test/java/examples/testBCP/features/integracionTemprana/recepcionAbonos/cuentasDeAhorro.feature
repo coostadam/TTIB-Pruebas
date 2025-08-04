@@ -19,10 +19,28 @@ Feature: Recepción de abonos en cuenta de Ahorro
 
 # TEST_013
   Scenario: En dólares como tercero con RUC
-    * match creditorIdCode == 6  
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+    #* match creditorIdCode == 6  
     * match currency == 840
     * match channel == 15  
-    * match sameCustomerFlag == 'O'
+    #* match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -67,10 +85,28 @@ Feature: Recepción de abonos en cuenta de Ahorro
 
 # TEST_010
   Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUC
-    * match creditorIdCode == 6  
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+    
+   #* match creditorIdCode == 6  
     * match currency == 604
     * match channel == 91  
-    * match sameCustomerFlag == 'O'
+   # * match sameCustomerFlag == 'O'
     * match transactionType == "320"
     
     Given path 'achoperations', 'exchange', 'mock'

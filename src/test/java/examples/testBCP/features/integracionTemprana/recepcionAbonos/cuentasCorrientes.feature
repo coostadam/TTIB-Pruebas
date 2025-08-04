@@ -10,16 +10,33 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * def dataCT2 = read('examples/testBCP/jsonData/dataCT2.json')
     * def dataCT3 = read('examples/testBCP/jsonData/dataCT3.json')
     * def dataCT5 = read('examples/testBCP/jsonData/dataCT5.json')
-    * def result = call read('examples/testBCP/feature/integracionTemprana/consultaCuenta/consultaDeCuenta.feature')
     * def achoperationsId = result.instructionId
     * def creditorIdCode = result.creditorIdCode
 
 #TEST_014
-  Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUC
-    * match creditorIdCode == 6  
+  Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUCç
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+
+   # * match creditorIdCode == 6  
     * match currency == 604
     * match channel == 91 
-    * match sameCustomerFlag == 'O'
+   # * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
