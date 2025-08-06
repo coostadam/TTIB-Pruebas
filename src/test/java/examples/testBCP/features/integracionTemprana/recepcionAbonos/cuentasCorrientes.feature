@@ -14,7 +14,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * def creditorIdCode = result.creditorIdCode
 
 #TEST_014
-  Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUCç
+  Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUC
     Given path 'achoperations', 'iniciate', 'mock'
     And request JSON
     When method POST
