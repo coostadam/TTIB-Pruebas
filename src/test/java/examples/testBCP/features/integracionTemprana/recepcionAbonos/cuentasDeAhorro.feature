@@ -51,7 +51,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
 
@@ -64,7 +64,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -75,7 +75,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -117,7 +117,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
 
@@ -130,7 +130,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -141,7 +141,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -183,7 +183,7 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -195,7 +195,7 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -206,7 +206,7 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'

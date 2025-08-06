@@ -49,7 +49,7 @@ Scenario: Desde PLIN hacia YAPE como mismo cliente con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -61,7 +61,7 @@ Scenario: Desde PLIN hacia YAPE como mismo cliente con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -72,7 +72,7 @@ Scenario: Desde PLIN hacia YAPE como mismo cliente con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -114,7 +114,7 @@ Scenario: En dolares como tercero con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -126,7 +126,7 @@ Scenario: En dolares como tercero con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -137,7 +137,7 @@ Scenario: En dolares como tercero con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -179,7 +179,7 @@ Scenario: En soles como mismo cliente con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -191,7 +191,7 @@ Scenario: En soles como mismo cliente con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -202,7 +202,7 @@ Scenario: En soles como mismo cliente con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -244,7 +244,7 @@ Scenario: En soles como tercero con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -256,7 +256,7 @@ Scenario: En soles como tercero con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -267,7 +267,7 @@ Scenario: En soles como tercero con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -309,7 +309,7 @@ Scenario: Desde Otra Entidad hacia Celular BCP como tercero con PASAPORTE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -321,7 +321,7 @@ Scenario: Desde Otra Entidad hacia Celular BCP como tercero con PASAPORTE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -332,7 +332,7 @@ Scenario: Desde Otra Entidad hacia Celular BCP como tercero con PASAPORTE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -374,7 +374,7 @@ Scenario: Desde PLIN hacia YAPE como mismo cliente con PASAPORTE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -386,7 +386,7 @@ Scenario: Desde PLIN hacia YAPE como mismo cliente con PASAPORTE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -397,7 +397,7 @@ Scenario: Desde PLIN hacia YAPE como mismo cliente con PASAPORTE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -439,7 +439,7 @@ Scenario: En dolares como mismo cliente con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -451,7 +451,7 @@ Scenario: En dolares como mismo cliente con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -462,7 +462,7 @@ Scenario: En dolares como mismo cliente con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -504,7 +504,7 @@ Scenario: En dolares como tercero con Pasaporte
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -516,7 +516,7 @@ Scenario: En dolares como tercero con Pasaporte
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -527,7 +527,7 @@ Scenario: En dolares como tercero con Pasaporte
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -569,7 +569,7 @@ Scenario: Desde Otra Entidad hacia Celular BCP para mismo cliente con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -581,7 +581,7 @@ Scenario: Desde Otra Entidad hacia Celular BCP para mismo cliente con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -592,7 +592,7 @@ Scenario: Desde Otra Entidad hacia Celular BCP para mismo cliente con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -634,7 +634,7 @@ Scenario: En soles como mismo cliente con RUC
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -646,7 +646,7 @@ Scenario: En soles como mismo cliente con RUC
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -657,7 +657,7 @@ Scenario: En soles como mismo cliente con RUC
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -699,7 +699,7 @@ Scenario: Desde Plin hacia YAPE por codigo QR como tercero con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -711,7 +711,7 @@ Scenario: Desde Plin hacia YAPE por codigo QR como tercero con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -722,7 +722,7 @@ Scenario: Desde Plin hacia YAPE por codigo QR como tercero con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -764,7 +764,7 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -776,7 +776,7 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -787,7 +787,7 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -829,7 +829,7 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -841,7 +841,7 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -852,7 +852,7 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -894,7 +894,7 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con PASAPORTE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -906,7 +906,7 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con PASAPORTE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -917,7 +917,7 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con PASAPORTE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -959,7 +959,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -971,7 +971,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -982,7 +982,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -1024,7 +1024,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -1036,7 +1036,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -1047,7 +1047,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -1089,7 +1089,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con Pasaporte
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -1101,7 +1101,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con Pasaporte
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -1112,7 +1112,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con Pasaporte
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -1155,7 +1155,7 @@ Scenario: Desde Otra Entidad hacia Celular BCP para mismo cliente con PASAPORTE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -1167,7 +1167,7 @@ Scenario: Desde Otra Entidad hacia Celular BCP para mismo cliente con PASAPORTE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -1178,7 +1178,7 @@ Scenario: Desde Otra Entidad hacia Celular BCP para mismo cliente con PASAPORTE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -1220,7 +1220,7 @@ Scenario: Desde Otra Entidad hacia Celular BCP en soles mismo cliente con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -1232,7 +1232,7 @@ Scenario: Desde Otra Entidad hacia Celular BCP en soles mismo cliente con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -1243,7 +1243,7 @@ Scenario: Desde Otra Entidad hacia Celular BCP en soles mismo cliente con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -1285,7 +1285,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -1297,7 +1297,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -1308,7 +1308,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -1350,7 +1350,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -1362,7 +1362,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -1373,7 +1373,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -1415,7 +1415,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con Pasaporte
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -1427,7 +1427,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con Pasaporte
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -1438,7 +1438,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con Pasaporte
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -1480,7 +1480,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -1492,7 +1492,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -1503,7 +1503,7 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -1545,7 +1545,7 @@ Scenario: Desde PLIN hacia YAPE como tercero con PASAPORTE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -1557,7 +1557,7 @@ Scenario: Desde PLIN hacia YAPE como tercero con PASAPORTE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -1568,7 +1568,7 @@ Scenario: Desde PLIN hacia YAPE como tercero con PASAPORTE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -1610,7 +1610,7 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -1622,7 +1622,7 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -1633,7 +1633,7 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -1675,7 +1675,7 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -1687,7 +1687,7 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -1698,7 +1698,7 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -1740,7 +1740,7 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con PASAPORTE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -1752,7 +1752,7 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con PASAPORTE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -1763,7 +1763,7 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con PASAPORTE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -1805,7 +1805,7 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con PASAPORTE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -1817,7 +1817,7 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con PASAPORTE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -1828,7 +1828,7 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con PASAPORTE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -1870,7 +1870,7 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -1882,7 +1882,7 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -1893,7 +1893,7 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -1935,7 +1935,7 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -1947,7 +1947,7 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -1958,7 +1958,7 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -2000,7 +2000,7 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con PASAPORTE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -2012,7 +2012,7 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con PASAPORTE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -2023,7 +2023,7 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con PASAPORTE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'
@@ -2065,7 +2065,7 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
     Given path 'achoperations', achoperationsId, 'exchange'
@@ -2077,7 +2077,7 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
     Given path 'confirmation-of-payment', 'mock'
@@ -2088,7 +2088,7 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
     Given path 'confirmation-of-payment'

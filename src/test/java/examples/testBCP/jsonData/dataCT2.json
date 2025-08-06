@@ -5,7 +5,7 @@
     "creationDate": "#regex \\d{8}",
     "creationTime": "#regex \\d{6}",
     "terminalId": "#string? _.length == 8",
-    "retrievalReferenteNumber": "#string? _.length == 12",
+    "retrievalReferenceNumber": "#string? _.length == 12",
     "trace": "#string? _.length == 6",
     "channel": "#string? _ == '15' || _ == '91' || _ == '52'",
     "amount": "#number",
