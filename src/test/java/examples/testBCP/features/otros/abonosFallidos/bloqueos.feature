@@ -1,17 +1,15 @@
-#TEST_020, TEST_021
-@integracionTemprana
-@wip
+#TEST_127, TEST_128
+@otros
 Feature: Validar el bloqueo de entidad receptora
 
   Background:
     * url apiUrl
-    * def jsonErrorAECWeb = read('examples/testBCP/jsonData/invalidData/cuenta_cerrada.json')
-    * def jsonErrorPCTWeb = read('examples/testBCP/jsonData/invalidData/monto_cero.json')
+    
 
 
-# TEST_020
-  Scenario: Después de 8 intentos en AEC (Abono En Cuenta)
-    * def body = jsonErrorAECWeb
+# TEST_127
+  Scenario: Después de 8 intentos hacia YAPE en AEC
+    * def body =
 
     * def enviarSieteVeces =
     """
@@ -33,11 +31,11 @@ Feature: Validar el bloqueo de entidad receptora
     When method POST
     Then status 500 
     # Cambiaria el status
-    And match response == { code: 'TI0430' }
-    * match response.message == 'LA TRANSFERENCIA ENVIADA NO ES PERMITIDA POR LA ENTIDAD DESTINO'
+    And match response == { code: '' }
+    * match response.message == ''
 
-# TEST_021
-  Scenario: Después de 8 intentos en PCT (Pago a Cuenta Tarjeta de Crédito)
+# TEST_128
+  Scenario: Después de 8 intentos hacia celular BCP en AEC
     * def result = call read('examples/testBCP/features/integracionTemprana/consultaCuenta/consultaDeCuenta.feature')
     * def channel = result.channel
     * def transactionType = result.transactionType

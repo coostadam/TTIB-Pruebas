@@ -1,33 +1,17 @@
-# TEST_017, TEST_016, TEST_028, TEST_027, TEST_026, TEST_025, TEST_029, TEST_024
-@integracionTemprana
+# TEST_064, TEST_065, TEST_066, TEST_067, TEST_114
+@otros
 Feature: Recepción de abonos no exitosos por datos inválidos
 
   Background:
     * url apiUrl
     * def dataAV2 = read('examples/testBCP/jsonData/dataAV2.json')
-    * def dataMonedaAcreditar = read('examples/testBCP/jsonData/invalidData/dataMonedaAcreditar.json')
-    * def dataCuentaCerrada = read('examples/testBCP/jsonData/invalidData/cuenta_cerrada.json')
-    * def dataInstructionId = read('examples/testBCP/jsonData/invalidData/instruction_duplicado.json')
-    * def dataMontoCero = read('examples/testBCP/jsonData/invalidData/monto_cero.json')
-    * def dataNombreFaltante = read('examples/testBCP/jsonData/invalidData/nombre_faltante.json')
-    * def dataIdReferencia = read('examples/testBCP/jsonData/invalidData/sin_id_referencia.json')
-    * def dataTarjetaCaducada = read('examples/testBCP/jsonData/invalidData/tarjeta_caducada.json')
-    * def dataTipoInvalido = read('examples/testBCP/jsonData/invalidData/tipo_cuenta_invalido.json')
+    * def dataCuentaInvalida = read('examples/testBCP/jsonData/invalidData/cuenta_invalida.json')
+    * def dataCodigoOriginanteInvalido = read('examples/testBCP/jsonData/invalidData/codigo_originante_invalido.json')
+    * def dataEntidadOriginanteNoRegistrada = read('examples/testBCP/jsonData/invalidData/entidad_originante_no_registrada.json') 
+    * def dataErrorFormato = read('examples/testBCP/jsonData/invalidData/error_formato.json')
 
-#TEST_017
-  Scenario: Abono a Tarjeta de Crédito por moneda de la cuenta a acreditar inválida
-    Given path 'QTI1', 'Consulta', 'Cuenta'
-    And request dataMonedaAcreditar
-    When method POST
-    Then status 200
-
-    Given path 'QTI1', 'Consulta', 'Cuenta'
-    When method GET
-    Then status 400
-    And match response.msg == 'MONEDA DIFERENTE A LA CUENTA O TC DESTINO'
-
-#TEST_016
-  Scenario: De otra entidad a tipo de cuenta a acreditar inválido
+#TEST_064
+  Scenario: De otra entidad al BCP  por número de Cuenta Incorrecto
     Given path 'QTI1', 'Consulta', 'Cuenta'
     And request dataTipoInvalido
     When method POST
@@ -36,80 +20,56 @@ Feature: Recepción de abonos no exitosos por datos inválidos
     Given path 'QTI1', 'Consulta', 'Cuenta'
     When method GET
     Then status 400
-    And match response.msg == 'TIPO DE CUENTA A ACREDITAR INVALIDO'
-
-#TEST_028
-  Scenario: De otra entidad por nombre de cliente originante faltante
+    And match response.msg == 'CUENTA O TC NO EXISTE'
+  
+#TEST_065
+  Scenario: De otra entidad al BCP  por código de identificación de originante
     Given path 'QTI1', 'Consulta', 'Cuenta'
-    And request dataNombreFaltante
+    And request dataCodigoOriginanteInvalido
     When method POST
     Then status 200
 
     Given path 'QTI1', 'Consulta', 'Cuenta'
     When method GET
     Then status 400
-    And match response.msg == 'NOMBRE DE CLIENTE ORIGINANTE FALTANTE'
+    And match response.msg == 'DOCUMENTO DEL CLIENTE ORIGINANTE INVALIDO'
 
-#TEST_027
-  Scenario: De otra entidad por duplicidad en Instruction ID
+#TEST_066
+  Scenario: De otra entidad al BCP por entidad originante No Registrada
     Given path 'QTI1', 'Consulta', 'Cuenta'
+    And request dataEntidadOriginanteNoRegistrada
     When method POST
-    And request dataInstructionId
     Then status 200
 
     Given path 'QTI1', 'Consulta', 'Cuenta'
     When method GET
     Then status 400
-    And match response.msg == 'INSTRUCTION ID DUPLICADO'
+    And match response.msg == 'ENTIDAD ORIGEN NO REGISTRADA'
 
-#TEST_026
-  Scenario: De otra entidad por monto cero
-    * call read('examples/testBCP/features/integracionTemprana/consultaCuenta/consultaDeCuenta.feature')
-
-    Given path 'QTI2', 'Consulta', 'Cuenta'
-    When method POST
-    And request dataMontoCero
-    Then status 200
-
-    Given path 'QTI2', 'Consulta', 'Cuenta'
-    When method GET
-    Then status 400
-    And match response.msg == 'MONTO CERO'
-
-#TEST_025
-  Scenario: De otra entidad a Cuenta a Acreditar Cerrada
+  #TEST_067
+  Scenario: De otra entidad al BCP por error de formato 
     Given path 'QTI1', 'Consulta', 'Cuenta'
+    And request dataErrorFormato
     When method POST
-    And request dataCuentaCerrada
     Then status 200
 
     Given path 'QTI1', 'Consulta', 'Cuenta'
     When method GET
     Then status 400
-    And match response.msg == 'CUENTA O TC EXISTENTE PERO CERRADA'
+    And match response.msg == 'ERROR DE FORMATO, CCI/TC/MONTO NO COINCIDE'
 
-#TEST_029
-  Scenario: De otra entidad por Id de Referencia Requerido
-    * call read('examples/testBCP/features/integracionTemprana/consultaCuenta/consultaDeCuenta.feature')
-
-    Given path 'QTI2', 'Consulta', 'Cuenta'
-    When method POST
-    And request dataIdReferencia
-    Then status 200
-
-    Given path 'QTI2', 'Consulta', 'Cuenta'
-    When method GET
-    Then status 400
-    And match response.msg == 'EL REF. ID DE LA CONSULTA ES INVALIDO'
-
-#TEST_024
-  Scenario: De otra entidad a Tarjeta Credito caducada del BCP
+#TEST_114
+  Scenario: De otra entidad al BCP por operación no soportada
     Given path 'QTI1', 'Consulta', 'Cuenta'
+    And request 
     When method POST
-    And request dataTarjetaCaducada
     Then status 200
 
     Given path 'QTI1', 'Consulta', 'Cuenta'
     When method GET
     Then status 400
-    And match response.msg == 'LA TARJETA DE CREDITO INGRESADA SE ENCUENTRA CADUCADA'
+    And match response.msg == 'OPERACION NO SOPOTADA'
+
+
+
+    

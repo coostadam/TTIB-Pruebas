@@ -148,3 +148,68 @@ Feature: Recepción de abonos en cuenta de Ahorro
     When method POST
     And request CT5
     Then status 204
+  
+#TEST_137
+Scenario: Desde BIM hacia YAPE por codigo QR como tercero con DNI
+    Given path 'achoperations', 'iniciate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200 
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'iniciate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def achoperationsId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
+    
+  #  * match creditorIdCode == 2
+    * match currency == 604
+    * match channel == 52
+  #  * match sameCustomerFlag == 'O'
+    * match transactionType == "320"
+
+    Given path 'achoperations', 'exchange', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT2
+    * def currency = response.currency
+    * def debtorCCI = response.debtorCCI
+    * def idInstruction = response.instructionId
+    * def amount = response.amount
+    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def CT2 = response
+
+    Given path 'achoperations', achoperationsId, 'exchange'
+    When method POST
+    And request CT2
+    Then status 200
+    And match response == dataCT3
+    * match response.debtorCCI == debtorCCI
+    * match response.amount == amount
+    * match response.instructionId == idInstruction
+    * match response.currency == currency
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT3 = response
+
+    Given path 'confirmation-of-payment', 'mock'
+    When method GET
+    Then status 200
+    And match response == dataCT5
+    * match response.currency == currency
+    * match response.debtorCCI == debtorCCI
+    * match response.instructionId == idInstruction
+    * match response.amount == amount
+    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * def CT5 = response
+
+    Given path 'confirmation-of-payment'
+    When method POST
+    And request CT5
+    Then status 204
