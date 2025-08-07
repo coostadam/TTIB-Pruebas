@@ -1,0 +1,23 @@
+{
+  "debtorParticipantCode": "0049",
+  "creditorParticipantCode": "0002",
+  "terminalId": "A1B2C3D4",
+  "retrievalReferenteNumber": "123456789012",
+  "trace": "993712",
+  "debtorName": "Juan Perez",
+  "debtorId": "123456789012",
+  "debtorIdCode": "2",
+  "debtorPhoneNumber": "7654321",
+  "debtorAddressLine": "Av. Siempre Viva 742",
+  "debtorMobileNumber": "912345678",
+  "transactionType": "320",
+  "channel": "52",
+  "creditorAddressLine": "Calle Falsa 123",
+  "creditorPhoneNumber": "1234567",
+  "creditorMobileNumber": "987654321",
+  "creditorCCI": "12345678901234567890",
+  "creditorCreditCard": "11112222333344445555",
+  "debtorTypeOfPerson": "N",
+  "currency": "604",
+  "branchId": "SucursalPrincipal123"
+}

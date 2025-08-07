@@ -1,0 +1,2 @@
+debtorParticipantCode,creditorParticipantCode,responseDate,responseTime,terminalId,retrievalReferenteNumber,trace,amount,currency,transactionReference,responseCode,reasonCode,feeAmount,settlementDate,transactionType,debtorCCI,creditorCCI,creditorCreditCard,sameCustomerFlag,branchId,instructionId
+0049,0002,20250807,120422,A1B2C3D4,123456789012,993712,4373,840,otZsOrIJOs,05,BE02,87,20250807,320,09870000624466101491,12345678901234567890,11112222333344445555,M,SucursalPrincipal123,M08071204220124103463
