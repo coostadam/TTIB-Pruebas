@@ -1,6 +1,6 @@
 {
-  "debtorParticipantCode": "0049",
-  "creditorParticipantCode": "0002",
+  "debtorParticipantCode": "0123",
+  "creditorParticipantCode": "0456",
   "terminalId": "Z8Y7X6W5",
   "retrievalReferenteNumber": "987654321098",
   "trace": "993712",

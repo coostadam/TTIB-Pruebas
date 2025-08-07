@@ -57,8 +57,8 @@ Feature: Recepción de abonos en cuenta de Ahorro
 
     # Endpoint real
     Given path 'achoperations', instructionId, 'exchange'
-    When method POST
     And request CT2
+    When method POST
     Then status 200
     And match response == dataCT3
     * match response.debtorCCI == debtorCCI
@@ -70,6 +70,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
 
     # Endpoint mockeado
     Given path 'achoperations', instructionId, 'execute', 'mock'
+    And request CT3
     When method GET
     Then status 200
     And match response == dataCT5
@@ -115,7 +116,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match channel == "91"
     * match transactionType == "320"
 
-    # Endpoint mockeado
+   # Endpoint mockeado
     Given path 'achoperations', 'exchange', 'mock'
     And request AV3
     When method GET
@@ -129,8 +130,8 @@ Feature: Recepción de abonos en cuenta de Ahorro
 
     # Endpoint real
     Given path 'achoperations', instructionId, 'exchange'
-    When method POST
     And request CT2
+    When method POST
     Then status 200
     And match response == dataCT3
     * match response.debtorCCI == debtorCCI
@@ -142,6 +143,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
 
     # Endpoint mockeado
     Given path 'achoperations', instructionId, 'execute', 'mock'
+    And request CT3
     When method GET
     Then status 200
     And match response == dataCT5
@@ -201,8 +203,8 @@ Feature: Recepción de abonos en cuenta de Ahorro
 
     # Endpoint real
     Given path 'achoperations', instructionId, 'exchange'
-    When method POST
     And request CT2
+    When method POST
     Then status 200
     And match response == dataCT3
     * match response.debtorCCI == debtorCCI
@@ -214,6 +216,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
 
     # Endpoint mockeado
     Given path 'achoperations', instructionId, 'execute', 'mock'
+    And request CT3
     When method GET
     Then status 200
     And match response == dataCT5

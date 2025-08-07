@@ -22,7 +22,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
     And match response == dataAV2
     * def AV2 = response
 
-    # Endpoint real
+   # Endpoint real
     Given path 'achoperations', 'initiate'
     And request AV2
     When method POST
@@ -41,7 +41,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * match channel == "91"
     * match transactionType == "320"
 
-    # Endpoint mockeado
+   # Endpoint mockeado
     Given path 'achoperations', 'exchange', 'mock'
     And request AV3
     When method GET
@@ -53,10 +53,10 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * def retrievalReferenteNumber = response.retrievalReferenteNumber
     * def CT2 = response
 
-   # Endpoint real
+    # Endpoint real
     Given path 'achoperations', instructionId, 'exchange'
-    When method POST
     And request CT2
+    When method POST
     Then status 200
     And match response == dataCT3
     * match response.debtorCCI == debtorCCI
@@ -66,8 +66,9 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * match response.retrievalReferenteNumber == retrievalReferenteNumber
     * def CT3 = response
 
-   # Endpoint mockeado
+    # Endpoint mockeado
     Given path 'achoperations', instructionId, 'execute', 'mock'
+    And request CT3
     When method GET
     Then status 200
     And match response == dataCT5

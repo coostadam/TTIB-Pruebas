@@ -12,7 +12,6 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * def dataCT5 = read('../../../data/jsonData/schemas/dataCT5.json')
     * def TEST_129 = read('../../../data/jsonData/resources/TEST129.json')
 
-
   Scenario: En dolares como tercero con DNI
     # Endpoint mockeado
     Given path 'achoperations', 'initiate', 'mock'
@@ -55,8 +54,8 @@ Feature: Recepción de abonos en Cuentas Corrientes
 
     # Endpoint real
     Given path 'achoperations', instructionId, 'exchange'
-    When method POST
     And request CT2
+    When method POST
     Then status 200
     And match response == dataCT3
     * match response.debtorCCI == debtorCCI
@@ -68,6 +67,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
 
     # Endpoint mockeado
     Given path 'achoperations', instructionId, 'execute', 'mock'
+    And request CT3
     When method GET
     Then status 200
     And match response == dataCT5
