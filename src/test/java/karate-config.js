@@ -5,7 +5,7 @@ function fn() {
     env = 'dev';
   }
   var config = {
-    apiUrl: 'https://bcp.com/api/',
+    apiUrl: 'http://localhost:8080/',
   }
 
   if (env == 'dev') {
@@ -19,14 +19,14 @@ function fn() {
   karate.configure('logPrettyRequest', true);
   karate.configure('logPrettyResponse', true);
 
-  var accessToken = karate.callSingle('classpath:examples/conduitApp/helpers/createToken.feature', config).authToken;
-  karate.configure('headers', {Authorization: 'Token ' + accessToken});
+  // var accessToken = karate.callSingle('classpath:examples/conduitApp/helpers/createToken.feature', config).authToken;
+ // karate.configure('headers', {Authorization: 'Token ' + accessToken});
 
-  karate.configure('headers', {
-    Authorization: 'Bearer ' + accessToken,
-    'Request-ID': requestId,
-    'Ocp-Apim-Subscription-Key': subscriptionKey
-  });
+ // karate.configure('headers', {
+ //   Authorization: 'Bearer ' + accessToken,
+  //  'Request-ID': requestId,
+  //  'Ocp-Apim-Subscription-Key': subscriptionKey
+//  });
 
   return config;
 }

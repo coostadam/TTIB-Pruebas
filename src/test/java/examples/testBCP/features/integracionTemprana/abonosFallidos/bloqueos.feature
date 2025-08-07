@@ -1,6 +1,6 @@
 #TEST_020, TEST_021
 @integracionTemprana
-@wip
+ @ignore
 Feature: Validar el bloqueo de entidad receptora
 
   Background:
