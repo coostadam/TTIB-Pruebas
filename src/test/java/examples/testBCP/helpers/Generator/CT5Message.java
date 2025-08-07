@@ -1,4 +1,4 @@
-package examples.testBCP.helpers.Generador;
+package examples.testBCP.helpers.Generator;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

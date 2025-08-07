@@ -1,4 +1,4 @@
-package examples.testBCP.helpers.Generador;
+package examples.testBCP.helpers.Generator;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -132,10 +132,10 @@ public class AV2Message {
                 String.valueOf(map.get("creditorCreditCard")),
                 String.valueOf(map.get("debtorTypeOfPerson")),
                 String.valueOf(map.get("currency")),
-                randomText(10 + GeneradorDeCSV.random.nextInt(2000)),
+                randomText(10 + DataGenerator.random.nextInt(2000)),
                 randomProxyType(),
                 "M" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMddHHmmss")) +
-                        String.format("%010d", GeneradorDeCSV.random.nextLong(1_000_000_0000L)),
+                        String.format("%010d", DataGenerator.random.nextLong(1_000_000_0000L)),
                 String.valueOf(map.get("branchId"))
         );
     }
