@@ -1,0 +1,1497 @@
+openapi: 3.0.3
+info:
+  title: Api de Transferencias Interbancarias
+  description: Api de Transferencias Interbancarias V1
+  version: 1.0.0
+externalDocs:
+  url: 'https://bcp-ti.atlassian.net/wiki/spaces/AADTIPAPTIPUB/overview'
+tags:
+  - name: QTI1
+    description: Receptor - Consultar la cuenta
+  - name: QTI2
+    description: Receptor - Orden de transferencia
+  - name: QTI3
+    description: Receptor- Confirmacion del abono
+security:
+  - BearerAuth: [ ]
+
+paths:
+  /achoperations/initiate:
+    post:
+      tags:
+        - QTI1
+      description: 'Endpoint para hacer consultas de cuentas y registrar la consulta'
+      summary: Consulta de cuenta.
+      operationId: startPr4
+      parameters:
+        - $ref: '#/components/parameters/RequestIDHeader'
+        - $ref: '#/components/parameters/SubscriptionKeyHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AV2'
+      responses:
+        '200':
+          description: Respuesta exitosa con los datos de la cuenta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AV3'
+        '400':
+          description: Los datos proporcionados son incorrectos.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '500':
+          description: El servicio no se encuentra disponible. Por favor reintente mas tarde.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+  /achoperations/{instructionId}/exchange:
+    post:
+      tags:
+        - QTI2
+      description: 'Endpoint para orden de transferencias'
+      summary: Orden de Tranferencia.
+      operationId: startPr6
+      parameters:
+        - $ref: '#/components/parameters/instructionIdPath'
+        - $ref: '#/components/parameters/RequestIDHeader'
+        - $ref: '#/components/parameters/SubscriptionKeyHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CT2'
+      responses:
+        '200':
+          description: Respuesta exitosa con los datos de la cuenta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CT3'
+        '400':
+          description: Los datos proporcionados son incorrectos.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '500':
+          description: El servicio no se encuentra disponible. Por favor reintente mas tarde.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+  /achoperations/{instructionId}/execute:
+    post:
+      tags:
+        - QTI3
+      summary: Endpoint de confirmacion del Abono.
+      description: Confirmación del abono.
+      operationId: startPr8
+      parameters:
+        - $ref: '#/components/parameters/instructionIdPath'
+        - $ref: '#/components/parameters/RequestIDHeader'
+        - $ref: '#/components/parameters/SubscriptionKeyHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CT5'
+      responses:
+        '204':
+          description: Trama procesada exitosamente
+        '400':
+          description: Los datos proporcionados son incorrectos.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '500':
+          description: El servicio no se encuentra disponible. Por favor reintente mas tarde.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    instructionIdPath:
+      name: instructionId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Autogenerado de identificación única de transacción.
+      example: M0421101152000011811587654321000006
+    RequestIDHeader:
+      name: Request-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      example: ed444333-f67e-44a5-ac96-e7189b82704d
+    SubscriptionKeyHeader:
+      name: Ocp-Apim-Subscription-Key
+      in: header
+      required: true
+      schema:
+        type: string
+      example: 3cfdad6e03c24d0ab7112dce75cdba35
+  schemas:
+    ApiException:
+      title: ApiException
+      type: object
+      properties:
+        code:
+          type: string
+          description: Codigo de error de Sistema
+          example: TL0001
+        description:
+          type: string
+          description: Descripcion del error de Sistema
+          example: Error al llamar al servicio
+        errorType:
+          type: string
+          description: Tipo de Error de Sistema
+          example: TECHNICAL
+        exceptionDetails:
+          type: array
+          description: Lista de detalles del error
+          items:
+            $ref: '#/components/schemas/ApiExceptionDetail'
+        properties:
+          type: object
+          properties: { }
+          description: Lista de propiedades especiales.
+      description: Datos del error de sistema.
+    ApiExceptionDetail:
+      title: ApiExceptionDetail
+      type: object
+      properties:
+        code:
+          type: string
+          description: Codigo de error del Detalle/Proveedor
+          example: MB0008
+        component:
+          type: string
+          description: Nombre del componente de falla
+          example: MB.CardInqV2
+        description:
+          type: string
+          description: Descripcion del Detalle
+          example: Codigo invalido para el canal
+      description: Datos del error técnico.
+    AV2:
+      type: object
+      required:
+        - debtorParticipantCode
+        - creditorParticipantCode
+        - creationDate
+        - creationTime
+        - terminalId
+        - retrievalReferenteNumber
+        - trace
+        - debtorId
+        - debtorIdCode
+        - transactionType
+        - channel
+        - debtorTypeOfPerson
+        - currency
+        - instructionId
+        - branchId
+      properties:
+        debtorParticipantCode:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 4
+          description: |
+            Código de la Entidad Originante.
+            Formato: 0XXX, donde “X” es un
+            caracter numérico.
+          example: '0011'
+        creditorParticipantCode:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 4
+          description: |
+            Código de la Entidad Receptora.
+            Formato: 0XXX, donde “X” es un
+            caracter numérico.
+          example: '0002'
+        creationDate:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 8
+          description: |
+            Fecha Local de la transacción.
+            Formato: AAAAMMDD.
+          example: '20210420'
+        creationTime:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 6
+          description: |
+            Hora Local de la transacción.
+            Formato: hhmmss.
+          example: '101000'
+        terminalId:
+          type: string
+          maxLength: 8
+          description: |
+            Código de identificación de terminal.
+            Por ejemplo: 110415
+          example: 110415
+        retrievalReferenteNumber:
+          type: string
+          maxLength: 12
+          description: |
+            Número de referencia. Según el formato: MMDDhhmmssRD, donde:
+            MM: Mes
+            DD: Día
+            hh: Horas
+            mm: Minutos
+            ss: Segundos
+            RD: es un número aleatorio comprendido entre 0 y 99
+          example: '010315560014'
+        trace:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 6
+          description: Número de seguimiento de la transacción.
+          example: '123456'
+        debtorName:
+          type: string
+          maxLength: 140
+          description: Nombre del Cliente Originante.
+          example: Pedro Gamero Butorac
+        debtorId:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 12
+          description: Número de Documento del Cliente Originante.
+          example: '42102129'
+        debtorIdCode:
+          type: string
+          enum:
+            - '1'
+            - '2'
+            - '3'
+            - '4'
+            - '5'
+            - '6'
+          description: |
+            Tipo de Documento del Cliente Originante. Segúpn corresponda:
+            1: LE
+            2: DNI
+            3: LM
+            4: Pasaporte
+            5: Carné de Extranjería
+            6: RUC'
+          example: '2'
+        debtorPhoneNumber:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 7
+          description: Número de teléfono fijo del Cliente Originante.
+          example: '2255784'
+        debtorAddressLine:
+          type: string
+          maxLength: 70
+          description: Dirección del Cliente Originante.
+          example: Av. Eduardo Ordoñez 379 - 101
+        debtorMobileNumber:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 9
+          description: Número de celular del Cliente Originante.
+          example: '999913014'
+        transactionType:
+          type: string
+          enum:
+            - '320'
+            - '325'
+          description: |
+            Código de Transacción Extendida. Se
+            utiliza para ampliar el código de
+            operación de la transacción. Según el
+            tipo de transferencia se coloca:
+            320: Transfer. Ordinaria
+            325: Pagos a Cta. Tarjeta'
+          example: '320'
+        channel:
+          type: string
+          enum:
+            - '02'
+            - '04'
+            - '07'
+            - '14'
+            - '15'
+            - '18'
+            - '52'
+            - '54'
+            - '56'
+            - '90'
+            - '91'
+            - '99'
+          description: |
+            Código del canal que origina la transacción.
+            Según corresponda:
+            02: ATM
+            04: BOX-Electronic Cash Register
+            07: IVR - Interactive Voice Response
+            14: POS
+            15: WEB
+            18: Terminal Administrativo
+            52: NET
+            54: Kiosco
+            56: Entidad Financiera
+            90: Ventanilla
+            91: Banca Móvil
+            99: Masivo
+          example: '15'
+        creditorAddressLine:
+          type: string
+          maxLength: 70
+          description: Dirección del Cliente Receptor.
+          example: Av. Los Pinos 444
+        creditorPhoneNumber:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 7
+          description: Número de teléfono fijo del Cliente Receptor.
+          example: '3461229'
+        creditorMobileNumber:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 9
+          description: Número de celular del Cliente Receptor.
+          example: '999666333'
+        creditorCCI:
+          type: string
+          maxLength: 20
+          description: |
+            Código de Cuenta Interbancario del Cliente Receptor. Su estructura es la siguiente:
+            Entidad (3) + Oficina (3) + # Cta (12) + Dígito verificador (2)
+            Por ejemplo: 05460912345678901212.
+            Este valor es mandatorio para todos los tipos de transferencia excepto 325.
+          example: '00219313693128502612'
+        creditorCreditCard:
+          type: string
+          maxLength: 20
+          description: |
+            Código de Tarjeta de Crédito del Cliente Receptor. Por ejemplo:
+            4474107011833615. Mandatorio cuando el tipo de transferencia es 325
+          example: '3777444477778880'
+        debtorTypeOfPerson:
+          type: string
+          enum:
+            - N
+            - J
+          description: |
+            Tipo de Persona del Cliente Originante.
+            Según corresponda:
+            N: Natural
+            J: Jurídica
+          example: "N"
+        currency:
+          type: string
+          enum:
+            - '604'
+            - '840'
+          description: |
+            Código de Moneda de la Transacción.
+            Según corresponda:
+            604: Soles
+            840: Dólares
+          example: '604'
+        proxyValue:
+          type: string
+          maxLength: 2048
+          description: Dato específico para MPP que se utilizará en actualizaciones futuras.
+          example: '999666333'
+        proxyType:
+          type: string
+          maxLength: 35
+          description: Tipo de proxy utilizado.
+          example: 'MSISDN'
+        instructionId:
+          type: string
+          maxLength: 35
+          description: Identificador único de instrucción.
+          example: 'M0421101152000011811587654321000006'
+        branchId:
+          type: string
+          maxLength: 35
+          description: <!1!
+            Autogenerado proporcionado por IPS, correspondiente al encabezado del mensaje. La Entidad debe almacenar este valor para proveerlo en la respuesta a esta transacción
+          example: '1001'
+    AV3:
+      type: object
+      required:
+        - debtorParticipantCode
+        - creditorParticipantCode
+        - creationDate
+        - creationTime
+        - terminalId
+        - retrievalReferenteNumber
+        - trace
+        - branchId
+        - debtorId
+        - debtorIdCode
+        - transactionType
+        - channel
+        - instructionId
+        - responseCode
+        - currency
+      properties:
+        debtorParticipantCode:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 4
+          description: 'Código de la Entidad Originante. Formato: 0XXX, donde “X” es un
+            caracter numérico.'
+          example: '0011'
+        creditorParticipantCode:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 4
+          description: 'Código de la Entidad Receptora. Formato: 0XXX, donde “X” es un caracter
+            numérico.'
+          example: '0002'
+        creationDate:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 8
+          description: 'Fecha Local de la transacción. Formato: AAAAMMDD.'
+          example: '20210420'
+        creationTime:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 6
+          description: 'Hora Local de la transacción. Formato: hhmmss.'
+          example: '101000'
+        terminalId:
+          type: string
+          maxLength: 8
+          description: 'Código de identificación de terminal. Por ejemplo: 110415'
+          example: 110415
+        retrievalReferenteNumber:
+          type: string
+          maxLength: 12
+          description: |
+            Número de referencia. según el formato: MMDDhhmmssRD, donde:
+            MM: Mes
+            DD: Día
+            hh: Horas
+            mm: Minutos
+            ss: Segundos
+            RD: es número aleatorio comprendido entre 0 y 99
+          example: '010315560014'
+        trace:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 6
+          description: Número de seguimiento de la transacción.
+          example: '123456'
+        branchId:
+          type: string
+          maxLength: 35
+          description: Autogenerado proporcionado por IPS en AV2. La Entidad debe poblar
+            este campo con el valor recibido.
+          example: '1001'
+        debtorName:
+          type: string
+          maxLength: 140
+          description: Nombre del Cliente Originante.
+          example: Pedro Gamero Butorac
+        debtorId:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 12
+          description: Número de Documento del Cliente Originante.
+          example: '42102129'
+        debtorIdCode:
+          type: string
+          enum:
+            - '1'
+            - '2'
+            - '3'
+            - '4'
+            - '5'
+            - '6'
+          description: |
+            Tipo de Documento del Cliente Originante. Según corresponda:
+            1: LE
+            2: DNI
+            3: LM
+            4: Pasaporte
+            5: Carné de Extranjería
+            6: RUC
+          example: '2'
+        debtorPhoneNumber:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 7
+          description: Número de teléfono fijo del Cliente Originante.
+          example: '2255784'
+        debtorAddressLine:
+          type: string
+          maxLength: 70
+          description: Dirección del Cliente Originante.
+          example: Av. Eduardo Ordonez 379 - 101
+        debtorMobileNumber:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 9
+          description: Número de celular del Cliente Originante.
+          example: '999913014'
+        transactionType:
+          type: string
+          enum:
+            - '320'
+            - '325'
+          description: |
+            Código de Transacción Extendida. Se utiliza para ampliar el código de operación de la transacción. Según el tipo de transferencia se coloca:
+            320: Transfer. Ordinaria
+            325: Pagos a Cta. Tarjeta'
+          example: '320'
+        channel:
+          type: string
+          enum:
+            - '02'
+            - '04'
+            - '07'
+            - '14'
+            - '15'
+            - '18'
+            - '52'
+            - '54'
+            - '56'
+            - '90'
+            - '91'
+            - '99'
+          description: |
+            Código del canal que origina la transacción.
+            Según corresponda:
+            02: ATM
+            04: BOX-Electronic Cash Register
+            07: IVR - Interactive Voice Response
+            14: POS
+            15: WEB
+            18: Terminal Administrativo
+            52: NET
+            54: Kiosco
+            56: Entidad Financiera
+            90: Ventanilla
+            91: Banca Móvil
+            99: Masivo
+          example: '15'
+        instructionId:
+          type: string
+          maxLength: 35
+          description: Autogenerado de identificación única de transacción. Proporcionado
+            por IPS en AV2.
+          example: M0421101152000011811587654321000006
+        responseCode:
+          type: string
+          enum:
+            - '00'
+            - '05'
+          description: |
+            Código de Respuesta.
+            00: Aceptada
+            05: Rechazada
+          example: '05'
+        reasonCode:
+          type: string
+          maxLength: 4
+          description: |
+            La razón del código de respuesta o
+            Respuesta Aplicativa. Ver Anexo 4.
+            Debe estar presente si el código de
+            respuesta indica rechazo.
+            (Ver el siguietne archivo: "Guia de Integración a IPS v6.3 clean 5 1.pdf")
+          example: AC11
+        creditorName:
+          type: string
+          maxLength: 140
+          description: |
+            Corresponde al nombre del Cliente
+            Receptor manejando el siguiente orden:
+            Nombres + Apellido Paterno + Apellido
+            Materno.
+          example: Luis Padilla Rojas
+        creditorAddressLine:
+          type: string
+          maxLength: 70
+          description: Dirección del Cliente Receptor.
+          example: Av. Los Pinos 444
+        creditorId:
+          type: string
+          maxLength: 12
+          description: Número de Documento del Cliente Receptor.
+          example: '42102130'
+        creditorIdCode:
+          type: string
+          enum:
+            - '1'
+            - '2'
+            - '3'
+            - '4'
+            - '5'
+            - '6'
+          description: |
+            Tipo de Documento del Cliente Receptor.
+            Según corresponda:
+            1: LE
+            2: DNI
+            3: LM
+            4: Pasaporte
+            5: Carné de Extranjería
+            6: RUC'
+          example: '2'
+        creditorPhoneNumber:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 7
+          description: Número de teléfono fijo del Cliente Receptor.
+          example: '3461229'
+        creditorMobileNumber:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 9
+          description: Número de celular del Cliente Receptor.
+          example: '999666333'
+        creditorCCI:
+          type: string
+          maxLength: 20
+          description: |
+            Código de Cuenta Interbancario del Cliente Receptor. Su estructura es la siguiente:
+            Entidad (3) + Oficina (3) + # Cta (12) + Dígito verificador (2)
+            Por ejemplo: 05460912345678901212.
+            Este valor es mandatorio para todos los tipos de transferencia excepto 325.
+          example: '00219313693128502612'
+        creditorCreditCard:
+          type: string
+          maxLength: 20
+          description: 'Código de Tarjeta de Crédito del Cliente Receptor. Por ejemplo: 4474107011833615. Mandatorio cuando el tipo de transferencia es 325.'
+          example: '3777444477778880'
+        sameCustomerFlag:
+          type: string
+          enum:
+            - M
+            - O
+          description: |
+            Indicador de Mismo Cliente, usado para determinar afectación de ITF.
+            M= Mismo cliente
+            O= Otro Cliente
+            Este campo es Mandatorio si la respuesta contenida en el mensaje es positiva.
+          example: M
+        currency:
+          type: string
+          enum:
+            - '604'
+            - '840'
+          description: |
+            Código de Moneda de la Transacción.
+            Según corresponda:
+            604: Soles
+            840: Dólares'
+          example: '604'
+        proxyValue:
+          type: string
+          maxLength: 2048
+          description: Dato específico para MPP que se utilizará en actualizaciones futuras.
+          example: '999666333'
+        proxyType:
+          type: string
+          maxLength: 35
+          description: Dato específico para MPP que se utilizará en actualizaciones futuras.
+          example: MSISDN
+    CT2:
+      type: object
+      required:
+        - debtorParticipantCode
+        - creditorParticipantCode
+        - creationDate
+        - creationTime
+        - terminalId
+        - retrievalReferenteNumber
+        - trace
+        - channel
+        - amount
+        - currency
+        - referenceTransactionId
+        - transactionType
+        - feeAmount
+        - feeCode
+        - applicationCriteria
+        - debtorTypeOfPerson
+        - debtorName
+        - debtorIdCode
+        - debtorId
+        - debtorCCI
+        - purposeCode
+        - branchId
+        - settlementDate
+        - instructionId
+        - interbankSettlementAmount
+      properties:
+        debtorParticipantCode:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 4
+          description: 'Código de la Entidad Originante. Formato: 0XXX, donde “X” es un
+            carácter numérico.'
+          example: '0011'
+        creditorParticipantCode:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 4
+          description: 'Código de la Entidad Receptora. Formato: 0XXX, donde “X” es un carácter
+            numérico.'
+          example: '0002'
+        creationDate:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 8
+          description: 'Fecha Local de la transacción. Formato: AAAAMMDD.'
+          example: '20210415'
+        creationTime:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 6
+          description: 'Hora Local de la transacción. Formato: hhmmss.'
+          example: '101000'
+        terminalId:
+          type: string
+          maxLength: 8
+          description: 'Código de identificación de terminal. Por ejemplo: 110415'
+          example: ABC00001
+        retrievalReferenteNumber:
+          type: string
+          maxLength: 12
+          description: |
+            Número de referencia. Según el formato: MMDDhhmmssRD, donde:
+            MM: Mes
+            DD: Día
+            hh: Horas
+            mm: Minutos
+            ss: Segundos
+            RD: es un número aleatorio comprendido entre 0 y 99
+          example: '010315560014'
+        trace:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 6
+          description: Número de seguimiento de la Transacción.
+          example: '123456'
+        channel:
+          type: string
+          enum:
+            - '02'
+            - '04'
+            - '07'
+            - '14'
+            - '15'
+            - '18'
+            - '52'
+            - '54'
+            - '56'
+            - '90'
+            - '91'
+            - '99'
+          description: |
+            Código del canal que origina la transacción.
+            Según corresponda:
+            02: ATM
+            04: BOX-Electronic Cash Register
+            07: IVR - Interactive Voice Response
+            14: POS
+            15: WEB
+            18: Terminal Administrativo
+            52: NET
+            54: Kiosco
+            56: Entidad Financiera
+            90: Ventanilla
+            91: Banca Móvil
+            99: Masivo
+          example: '15'
+        amount:
+          type: number
+          description: |
+            Hace referencia al importe de la
+            operación (los 2 últimos dígitos indican la
+            parte decimal). Por ejemplo: 250000
+            representa 2500 unidades monetarias y
+            00 centavos.
+          example: 50000
+        currency:
+          type: string
+          enum:
+            - '604'
+            - '840'
+          description: |
+            Código de Moneda de la Transacción.
+            Según corresponda:
+            604: Soles
+            840: Dólares'
+          example: '604'
+        transactionReference:
+          type: string
+          maxLength: 25
+          description: Código de Referencia de la transacción indicada por la Entidad Originante.
+          example: '1234567890'
+        referenceTransactionId:
+          type: string
+          maxLength: 35
+          description: Identificador o InstructionID enviado a la Entidad Originante en
+            la respuesta a la consulta de cuenta (AV4).
+          example: '76016889'
+        transactionType:
+          type: string
+          enum:
+            - '320'
+            - '325'
+          description: |
+            Código de Transacción Extendida. Se
+            utiliza para ampliar el código de
+            operación de la transacción. Según
+            el tipo de transferencia se coloca:
+            320: Transfer. Ordinaria
+            325: Pagos a Cta. Tarjeta'
+        feeAmount:
+          type: number
+          description: Importe de Comisión (los 2 últimos dígitos indican la parte decimal).
+          example: 700
+        feeCode:
+          type: string
+          maxLength: 4
+          description: |
+            Hace referencia al código de tarifa.
+            Por ejemplo: 0105
+          example: 0105
+        applicationCriteria:
+          type: string
+          enum:
+            - M
+            - O
+            - E
+          description: |
+            Criterio de Aplicación:
+            M: Misma Plaza
+            O: Otra Plaza
+            E: Plaza Exclusiva
+          example: M
+        debtorTypeOfPerson:
+          type: string
+          enum:
+            - N
+            - J
+          description: |
+            Tipo de Persona del Cliente Originante.
+            Según corresponda:
+            N: Natural
+            J: Jurídica
+          example: "N"
+        debtorName:
+          type: string
+          maxLength: 140
+          description: Nombre del Cliente Originante.
+          example: Pedro Gamero Butorac
+        debtorAddressLine:
+          type: string
+          maxLength: 70
+          description: Dirección del Cliente Originante.
+          example: Av. Eduardo Ordoñez 379 - 101
+        debtorIdCode:
+          type: string
+          enum:
+            - '1'
+            - '2'
+            - '3'
+            - '4'
+            - '5'
+            - '6'
+          description: |
+            Tipo de Documento del Cliente Originante. Segúpn corresponda:
+            1: LE
+            2: DNI
+            3: LM
+            4: Pasaporte
+            5: Carné de Extranjería
+            6: RUC
+          example: '2'
+        debtorId:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 12
+          description: Número de Documento del Cliente Originante.
+          example: '42102129'
+        debtorPhoneNumber:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 7
+          description: Número de teléfono fijo del Cliente Originante.
+          example: '2255784'
+        debtorMobileNumber:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 9
+          description: Número de celular del Cliente Originante.
+          example: '999913014'
+        debtorCCI:
+          type: string
+          maxLength: 20
+          description: Código de Cuenta Interbancario del Cliente Originante.
+          example: '01181400020887813712'
+        creditorName:
+          type: string
+          maxLength: 140
+          description: Corresponde al Nombre del Cliente Receptor.
+          example: Luis Padilla Rojas
+        creditorAddressLine:
+          type: string
+          maxLength: 70
+          description: Dirección del Cliente Receptor.
+          example: Av. Los Pinos 444
+        creditorPhoneNumber:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 7
+          description: Número de teléfono fijo del Cliente Receptor.
+          example: '3461229'
+        creditorMobileNumber:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 9
+          description: Número de celular del Cliente Receptor.
+          example: '999666333'
+        creditorCCI:
+          type: string
+          maxLength: 20
+          description: |
+            Código de Cuenta Interbancario del
+            Cliente Receptor. Su estructura es la
+            siguiente:
+            Entidad (3) + Oficina (3) + # Cta (12) +
+            Dígito verificador (2)
+            Por ejemplo: 05460912345678901212.
+            Este valor es mandatorio para todos los
+            tipos de transferencia excepto 325.
+          example: '00219313693128502612'
+        creditorCreditCard:
+          type: string
+          maxLength: 20
+          description: |
+            Código de Tarjeta de Crédito del Cliente
+            Receptor. Por ejemplo:
+            4474107011833615. Mandatorio cuando
+            el tipo de transferencia es 325.
+          example: '3777444477778880'
+        sameCustomerFlag:
+          type: string
+          enum:
+            - M
+            - O
+          description: |
+            Indicador de Mismo Cliente, usado para
+            determinar afectación de ITF.
+            M= Mismo cliente
+            O= Otro Cliente
+          example: M
+        purposeCode:
+          type: string
+          maxLength: 4
+          description: |
+            Hace referencia al Concepto de cobro de
+            tarifa. Ver Anexo 6. Por ejemplo: “OTHR”
+            (Ver el siguietne archivo: "Guia de Integración a IPS v6.3 clean 5 1.pdf")
+          example: ADMG
+        unstructuredInformation:
+          type: string
+          maxLength: 140
+          description: |
+            Glosa de la transacción. Este es un
+            campo de libre disponibilidad para que el
+            Cliente Originante indique la razón por la
+            que realiza la transacción.
+          example: Pago de Mantenimiento Abril
+        grossSalaryAmount:
+          type: number
+          description: |
+            Hace referencia a Importe de Sueldos
+            Brutos.
+            Este campo de uso exclusivo del tipo de
+            transferencia 323 - Pago de CTS
+          example: 50000
+        salaryPaymentIndicator:
+          type: string
+          enum:
+            - '4'
+            - '5'
+            - '8'
+            - '9'
+          description: |
+            Corresponde al Indicador Pago Haberes,
+            según el siguiente listado:
+            4: Pago de haberes de Cuarta Categoría.
+            5: Pago de haberes de Quinta Categoría.
+            8: Otros haberes gravados.
+            9: Otros haberes exonerados.
+            Este campo de uso exclusivo del tipo de
+            transferencia 321 - Pago de Haberes
+          example: '5'
+        monthOfThePayment:
+          type: string
+          maxLength: 2
+          description: |
+            Hace referencia al Mes de Pago, por
+            ejemplo: 12
+            Este campo de uso exclusivo del tipo de
+            transferencia 323 - Pago de CTS
+          example: '11'
+        yearOfThePayment:
+          type: string
+          maxLength: 4
+          description: |
+            Hace referencia al Año de Pago, por
+            ejemplo: 2020
+            Este campo de uso exclusivo del tipo de
+            transferencia 323 - Pago de CTS
+          example: '2021'
+        branchId:
+          type: string
+          maxLength: 35
+          description: |
+            Autogenerado proporcionado por IPS,
+            correspondiente al encabezado del
+            mensaje. La Entidad debe almacenar
+            este valor para proveerlo en la respuesta
+            a esta transacción
+          example: '1001'
+        settlementDate:
+          type: string
+          maxLength: 8
+          description: |
+            Hace referencia a la fecha de liquidación.
+            Formato: AAAAMMDD. Proporcionado
+            por IPS.
+          example: '20210415'
+        instructionId:
+          type: string
+          maxLength: 35
+          description: |
+            Autogenerado de identificación única de
+            transacción. Proporcionado por IPS.
+          example: '20160614654321616615000001'
+        interbankSettlementAmount:
+          type: number
+          description: |
+            Hace referencia al monto de liquidación
+            interbancaria – entiéndase, monto +/-
+            comisión (los 2 últimos dígitos indican la
+            parte decimal). Por ejemplo: 250000
+            representa 2500 unidades monetarias y
+            00 centavos.
+          example: 50700
+    CT3:
+      type: object
+      required:
+        - debtorParticipantCode
+        - creditorParticipantCode
+        - responseDate
+        - responseTime
+        - terminalId
+        - retrievalReferenteNumber
+        - trace
+        - amount
+        - currency
+        - responseCode
+        - feeAmount
+        - settlementDate
+        - transactionType
+        - debtorCCI
+        - branchId
+        - instructionId
+      properties:
+        debtorParticipantCode:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 4
+          description: 'Código de la Entidad Originante. Formato: 0XXX, donde “X” es un
+            carácter numérico.'
+          example: '0011'
+        creditorParticipantCode:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 4
+          description: 'Código de la Entidad Receptora. Formato: 0XXX, donde “X” es un carácter
+            numérico.'
+          example: '0002'
+        responseDate:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 8
+          description: 'Fecha Local de la transacción. Formato: AAAAMMDD.'
+          example: '20210415'
+        responseTime:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 6
+          description: 'Hora Local de la transacción. Formato: hhmmss.'
+          example: '101005'
+        terminalId:
+          type: string
+          maxLength: 8
+          description: Código de identificación de terminal.
+          example: ABC00001
+        retrievalReferenteNumber:
+          type: string
+          maxLength: 12
+          description: 'Número de referencia. Formato: MMDDhhmmssRD.'
+          example: '010315560014'
+        trace:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 6
+          description: Número de seguimiento de la Transacción.
+          example: '123456'
+        amount:
+          type: number
+          description: Importe de la operación (los 2 últimos dígitos indican la parte decimal).
+          example: 50000
+        currency:
+          type: string
+          enum:
+            - '604'
+            - '840'
+          description: 'Código de Moneda de la Transacción.
+            Según corresponda:
+            604: Soles
+            840: Dólares'
+          example: '604'
+        transactionReference:
+          type: string
+          maxLength: 25
+          description: Código de Referencia de la transferencia
+            indicada por la Entidad Originante.
+          example: '1234567890'
+        responseCode:
+          type: string
+          enum:
+            - '00'
+            - '05'
+          description: |
+            Código de Respuesta.
+            00: Aceptada
+            05: Rechazada
+          example: '05'
+        reasonCode:
+          type: string
+          maxLength: 4
+          description: Razón del código de respuesta o Respuesta Aplicativa. Presente si
+            el código de respuesta indica rechazo.
+          example: AC11
+        feeAmount:
+          type: number
+          description: |
+            Hace referencia al Importe de Comisión
+            (los 2 últimos dígitos indican la parte
+            decimal). Por ejemplo: 10000 representa
+            100 unidades monetarias y 00 centavos.
+          example: 700
+        settlementDate:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 8
+          description: 'Fecha de liquidación. Formato: AAAAMMDD.'
+          example: '20210415'
+        transactionType:
+          type: string
+          enum:
+            - '320'
+            - '325'
+          description: |
+            Código de Transacción Extendida. Se utiliza para ampliar el código de operación de la transacción. Según el tipo de transferencia se coloca:
+            320: Transfer. Ordinaria
+            325: Pagos a Cta. Tarjeta'
+        debtorCCI:
+          type: string
+          maxLength: 20
+          description: Código de Cuenta Interbancario del Cliente Originante.
+          example: '01181400020887813712'
+        creditorCCI:
+          type: string
+          maxLength: 20
+          description: Código de Cuenta Interbancario del Cliente Receptor. Mandatorio excepto
+            para tipo 325.
+          example: '00219313693128502612'
+        creditorCreditCard:
+          type: string
+          maxLength: 20
+          description: Código de Tarjeta de Crédito del Cliente Receptor. Mandatorio cuando
+            el tipo de transferencia es 325.
+          example: '3777444477778880'
+        sameCustomerFlag:
+          type: string
+          enum:
+            - 'M'
+            - 'O'
+          description: Indicador de Mismo Cliente. M = Mismo cliente, O = Otro Cliente
+          example: M
+        branchId:
+          type: string
+          maxLength: 35
+          description: |
+            Autogenerado proporcionado por IPS en
+            CT2. La Entidad debe poblar este campo
+            con el valor recibido.
+          example: '1001'
+        instructionId:
+          type: string
+          maxLength: 35
+          description: |
+            Autogenerado de identificación única de
+            transacción. Proporcionado por IPS.
+          example: '20160614654321616615000001'
+    CT5:
+      type: object
+      required:
+        - debtorParticipantCode
+        - creditorParticipantCode
+        - responseDate
+        - responseTime
+        - terminalId
+        - retrievalReferenteNumber
+        - trace
+        - amount
+        - currency
+        - responseCode
+        - feeAmount
+        - settlementDate
+        - transactionType
+        - debtorCCI
+        - instructionId
+        - creationDate
+        - creationTime
+        - channel
+        - interbankSettlementAmount
+      properties:
+        debtorParticipantCode:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 4
+          description: |
+            Código de la Entidad Originante.
+            Formato: 0XXX, donde “X” es un caracter
+            numérico.
+          example: "0011"
+        creditorParticipantCode:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 4
+          description: |
+            Código de la Entidad Receptora.
+            Formato: 0XXX, donde “X” es un caracter
+            numérico.
+          example: "0002"
+        responseDate:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 8
+          description: |
+            Fecha de Respuesta de la transacción.
+            Formato: AAAAMMDD.
+          example: "20210415"
+        responseTime:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 6
+          description: |
+            Hora de Respuesta de la transacción.
+            Formato: hhmmss.
+          example: "101005"
+        terminalId:
+          type: string
+          example: "ABC00001"
+          description: |
+            Código de identificación de terminal. Por
+            ejemplo: 110415
+          maxLength: 8
+        retrievalReferenteNumber:
+          type: string
+          maxLength: 12
+          description: Retrieval Referente Number
+          example: "010315560014"
+        trace:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 6
+          description: |
+            Número de seguimiento de la
+            transacción.
+          example: "123456"
+        amount:
+          type: number
+          maxLength: 12
+          description: |
+            Hace referencia al importe de la
+            operación (los 2 últimos dígitos indican la
+            parte decimal). Por ejemplo: 250000
+            representa 2500 unidades monetarias y
+            00 centavos
+          example: 50000
+        currency:
+          type: string
+          enum:
+            - '604'
+            - '840'
+          description: |
+            Código de Moneda de la Transacción.
+            Según corresponda:
+            604: Soles
+            840: Dólares
+          example: "604"
+        transactionReference:
+          type: string
+          maxLength: 25
+          description: |
+            Código de Referencia de la transferencia
+            indicada por la Entidad Originante.
+          example: "1234567890"
+        responseCode:
+          type: string
+          enum:
+            - '00'
+          description: |
+            Código de Respuesta.
+            00: Aceptada
+          example: "00"
+        feeAmount:
+          type: number
+          maxLength: 15
+          description: |
+            Hace referencia al Importe de Comisión
+            (los 2 últimos dígitos indican la parte
+            decimal). Por ejemplo: 10000 representa
+            100 unidades monetarias y 00 centavos.
+          example: 700
+        settlementDate:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 8
+          description: |
+            Hace referencia a la fecha de liquidación.
+            Formato: AAAAMMDD. Proporcionado
+            por IPS.
+          example: "20210415"
+        transactionType:
+          type: string
+          enum:
+            - '320'
+            - '325'
+          description: |
+            Código de Transacción Extendida. Se
+            utiliza para ampliar el código de
+            operación de la transacción. Según el
+            tipo de transferencia se coloca:
+            320: Transfer. Ordinaria
+            325: Pagos a Cta. Tarjeta
+          example: "320"
+        debtorCCI:
+          type: string
+          maxLength: 20
+          description: |
+            Código de Cuenta Interbancario del
+            Cliente Originante. Su estructura es la
+            siguiente:
+            Entidad (3) + Oficina (3) + # Cta (12) +
+            Dígito verificador (2)
+            Por ejemplo: 05460912345678901212.
+          example: "01181400020887813712"
+        creditorCCI:
+          type: string
+          maxLength: 20
+          description: |
+            Código de Cuenta Interbancario del
+            Cliente Receptor. Su estructura es la
+            siguiente:
+            Entidad (3) + Oficina (3) + # Cta (12) +
+            Dígito verificador (2)
+            Por ejemplo: 05460912345678901212.
+            Este valor es mandatorio para todos los
+            tipos de transferencia excepto 325.
+          example: "00219313693128502612"
+        creditorCreditCard:
+          type: string
+          maxLength: 20
+          description: |
+            Código de Tarjeta de Crédito del Cliente
+            Receptor. Por ejemplo:
+            4474107011833615. Mandatorio cuando
+            el tipo de transferencia es 325.
+          example: "3777444477778880"
+        sameCustomerFlag:
+          type: string
+          enum:
+            - M
+            - O
+          description: |
+            Indicador de Mismo Cliente, usado para
+            determinar afectación de ITF.
+            M= Mismo cliente
+            O= Otro Cliente
+          example: "M"
+        instructionId:
+          type: string
+          maxLength: 35
+          description: |
+            Autogenerado de identificación única de
+            transacción. Proporcionado por IPS.
+          example: "20160614654321616615000001"
+        creationDate:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 8
+          description: |
+            Fecha Local de la transacción. Formato:
+            AAAAMMDD.
+          example: "20210415"
+        creationTime:
+          type: string
+          pattern: '^\d+$'
+          maxLength: 6
+          description: |
+            Hora Local de la transacción. Formato:
+            hhmmss.
+          example: "101000"
+        channel:
+          type: string
+          enum:
+            - '02'
+            - '04'
+            - '07'
+            - '14'
+            - '15'
+            - '18'
+            - '52'
+            - '54'
+            - '56'
+            - '90'
+            - '91'
+            - '99'
+        interbankSettlementAmount:
+          type: integer
+          example: 50700
