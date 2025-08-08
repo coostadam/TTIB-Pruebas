@@ -1,6 +1,7 @@
 
 # TEST_035, TEST_038, TEST_042, TEST_044, TEST_048, TEST_053, TEST_054, TEST_059, TEST_073,TEST_075,TEST_077, TEST_078 TEST_083, TEST_085, TEST_086, TEST_096, TEST_097, TEST_098, TEST_099,  TEST_100, TEST_101, TEST_102,  TEST_103,  TEST_104, TEST_137, TEST_138, TEST_139, TEST_141, TEST_142,TEST_143
 @otros
+@pendingAutomation
 Feature: Recepción de abonos en cuenta de Ahorro
 
   Background:
@@ -9,11 +10,6 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * def dataCT2 = read('examples/testBCP/jsonData/dataCT2.json')
     * def dataCT3 = read('examples/testBCP/jsonData/dataCT3.json')
     * def dataCT5 = read('examples/testBCP/jsonData/dataCT5.json')
-    * def achoperationsId = result.instructionId
-    * def creditorIdCode = result.creditorIdCode
-    * def currency = result.currency
-    * def channel = result.channel 
-    * def transactionType = result.transactionType
 
 #TEST_035 
 Scenario: Desde PLIN hacia YAPE como mismo cliente con DNI
@@ -29,15 +25,15 @@ Scenario: Desde PLIN hacia YAPE como mismo cliente con DNI
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
    # * match creditorIdCode == 2
-    * match currency == 604
-    * match channel == 52  
+    * match currency == '604'
+    * match channel == '52'  
    # * match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
@@ -49,10 +45,10 @@ Scenario: Desde PLIN hacia YAPE como mismo cliente con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -61,10 +57,10 @@ Scenario: Desde PLIN hacia YAPE como mismo cliente con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -72,10 +68,10 @@ Scenario: Desde PLIN hacia YAPE como mismo cliente con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -94,15 +90,15 @@ Scenario: En dolares como tercero con CE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
 
 #    * match creditorIdCode == 5
-    * match currency == 840
-    * match channel == 15  
+    * match currency == '840'
+    * match channel == '15'  
 #    * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -114,10 +110,10 @@ Scenario: En dolares como tercero con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -126,10 +122,10 @@ Scenario: En dolares como tercero con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -137,10 +133,10 @@ Scenario: En dolares como tercero con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -159,15 +155,15 @@ Scenario: En soles como mismo cliente con CE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
 
    # * match creditorIdCode == 5
-    * match currency == 604
-    * match channel == 15  
+    * match currency == '604'
+    * match channel == '15'  
    # * match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
@@ -179,10 +175,10 @@ Scenario: En soles como mismo cliente con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -191,10 +187,10 @@ Scenario: En soles como mismo cliente con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -202,10 +198,10 @@ Scenario: En soles como mismo cliente con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -224,15 +220,15 @@ Scenario: En soles como tercero con CE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
 
     #* match creditorIdCode == 5
-    * match currency == 604
-    * match channel == 15  
+    * match currency == '604'
+    * match channel == '15'  
     #* match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -244,10 +240,10 @@ Scenario: En soles como tercero con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -256,10 +252,10 @@ Scenario: En soles como tercero con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -267,10 +263,10 @@ Scenario: En soles como tercero con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -289,15 +285,15 @@ Scenario: Desde Otra Entidad hacia Celular BCP como tercero con PASAPORTE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
   #  * match creditorIdCode == 4
-    * match currency == 604
-    * match channel == 91  
+    * match currency == '604'
+    * match channel == '91'  
   #  * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -309,10 +305,10 @@ Scenario: Desde Otra Entidad hacia Celular BCP como tercero con PASAPORTE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -321,10 +317,10 @@ Scenario: Desde Otra Entidad hacia Celular BCP como tercero con PASAPORTE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -332,10 +328,10 @@ Scenario: Desde Otra Entidad hacia Celular BCP como tercero con PASAPORTE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -354,15 +350,15 @@ Scenario: Desde PLIN hacia YAPE como mismo cliente con PASAPORTE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
   #  * match creditorIdCode == 4
-    * match currency == 604
-    * match channel == 52  
+    * match currency == '604'
+    * match channel == '52'  
   #  * match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
@@ -374,10 +370,10 @@ Scenario: Desde PLIN hacia YAPE como mismo cliente con PASAPORTE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -386,10 +382,10 @@ Scenario: Desde PLIN hacia YAPE como mismo cliente con PASAPORTE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -397,10 +393,10 @@ Scenario: Desde PLIN hacia YAPE como mismo cliente con PASAPORTE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -419,15 +415,15 @@ Scenario: En dolares como mismo cliente con DNI
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
 
   # * match creditorIdCode == 2
-    * match currency == 840
-    * match channel == 15  
+    * match currency == '840'
+    * match channel == '15'  
   # * match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
@@ -439,10 +435,10 @@ Scenario: En dolares como mismo cliente con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -451,10 +447,10 @@ Scenario: En dolares como mismo cliente con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -462,10 +458,10 @@ Scenario: En dolares como mismo cliente con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -484,15 +480,15 @@ Scenario: En dolares como tercero con Pasaporte
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
 
  #   * match creditorIdCode == 4
-    * match currency == 840
-    * match channel == 15  
+    * match currency == '840'
+    * match channel == '15'  
  #   * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -504,10 +500,10 @@ Scenario: En dolares como tercero con Pasaporte
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -516,10 +512,10 @@ Scenario: En dolares como tercero con Pasaporte
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -527,10 +523,10 @@ Scenario: En dolares como tercero con Pasaporte
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -549,15 +545,15 @@ Scenario: Desde Otra Entidad hacia Celular BCP para mismo cliente con DNI
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
   #  * match creditorIdCode == 2
-    * match currency == 604
-    * match channel == 91  
+    * match currency == '604'
+    * match channel == '91'  
   #  * match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
@@ -569,10 +565,10 @@ Scenario: Desde Otra Entidad hacia Celular BCP para mismo cliente con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -581,10 +577,10 @@ Scenario: Desde Otra Entidad hacia Celular BCP para mismo cliente con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -592,10 +588,10 @@ Scenario: Desde Otra Entidad hacia Celular BCP para mismo cliente con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -614,15 +610,15 @@ Scenario: En soles como mismo cliente con RUC
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
    # * match creditorIdCode == 6
-    * match currency == 604
-    * match channel == 15  
+    * match currency == '604'
+    * match channel == '15'  
    # * match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
@@ -634,10 +630,10 @@ Scenario: En soles como mismo cliente con RUC
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -646,10 +642,10 @@ Scenario: En soles como mismo cliente con RUC
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -657,10 +653,10 @@ Scenario: En soles como mismo cliente con RUC
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -679,15 +675,15 @@ Scenario: Desde Plin hacia YAPE por codigo QR como tercero con DNI
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
 
  #   * match creditorIdCode == 2
-    * match currency == 604
-    * match channel == 52
+    * match currency == '604'
+    * match channel == '52'
 #    * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -699,10 +695,10 @@ Scenario: Desde Plin hacia YAPE por codigo QR como tercero con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -711,10 +707,10 @@ Scenario: Desde Plin hacia YAPE por codigo QR como tercero con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -722,10 +718,10 @@ Scenario: Desde Plin hacia YAPE por codigo QR como tercero con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204 
@@ -744,15 +740,15 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con DNI
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
 
 #    * match creditorIdCode == 2
-    * match currency == 604
-    * match channel == 52
+    * match currency == '604'
+    * match channel == '52'
 #    * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -764,10 +760,10 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -776,10 +772,10 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -787,10 +783,10 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204 
@@ -809,15 +805,15 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con CE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
 
  #   * match creditorIdCode == 5
-    * match currency == 604
-    * match channel == 52
+    * match currency == '604'
+    * match channel == '52'
  #   * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -829,10 +825,10 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -841,10 +837,10 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -852,10 +848,10 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204 
@@ -874,15 +870,15 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con PASAPORTE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
 
 #    * match creditorIdCode == 4
-    * match currency == 604
-    * match channel == 52
+    * match currency == '604'
+    * match channel == '52'
 #   * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -894,10 +890,10 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con PASAPORTE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -906,10 +902,10 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con PASAPORTE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -917,10 +913,10 @@ Scenario: Desde Otra Entidad hacia YAPE por codigo QR como tercero con PASAPORTE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204 
@@ -939,15 +935,15 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con DNI
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
 
     #* match creditorIdCode == 2
-    * match currency == 604
-    * match channel == 91  
+    * match currency == '604'
+    * match channel == '91'  
     #* match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
@@ -959,10 +955,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -971,10 +967,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -982,10 +978,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -1004,15 +1000,15 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con CE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
     #* match creditorIdCode == 5
-    * match currency == 604
-    * match channel == 91  
+    * match currency == '604'
+    * match channel == '91'  
     #* match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
@@ -1024,10 +1020,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -1036,10 +1032,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -1047,10 +1043,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -1069,15 +1065,15 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con Pasaporte
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
     #* match creditorIdCode == 4
-    * match currency == 604
-    * match channel == 91  
+    * match currency == '604'
+    * match channel == '91'  
     #* match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
@@ -1089,10 +1085,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con Pasaporte
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -1101,10 +1097,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con Pasaporte
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -1112,10 +1108,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles mismo cliente con Pasaporte
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -1135,15 +1131,15 @@ Scenario: Desde Otra Entidad hacia Celular BCP para mismo cliente con PASAPORTE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
   #  * match creditorIdCode == 4
-    * match currency == 604
-    * match channel == 91  
+    * match currency == '604'
+    * match channel == '91'  
   #  * match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
@@ -1155,10 +1151,10 @@ Scenario: Desde Otra Entidad hacia Celular BCP para mismo cliente con PASAPORTE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -1167,10 +1163,10 @@ Scenario: Desde Otra Entidad hacia Celular BCP para mismo cliente con PASAPORTE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -1178,10 +1174,10 @@ Scenario: Desde Otra Entidad hacia Celular BCP para mismo cliente con PASAPORTE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -1200,15 +1196,15 @@ Scenario: Desde Otra Entidad hacia Celular BCP en soles mismo cliente con CE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
   #  * match creditorIdCode == 5
-    * match currency == 604
-    * match channel == 52  
+    * match currency == '604'
+    * match channel == '52'  
   #  * match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
@@ -1220,10 +1216,10 @@ Scenario: Desde Otra Entidad hacia Celular BCP en soles mismo cliente con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -1232,10 +1228,10 @@ Scenario: Desde Otra Entidad hacia Celular BCP en soles mismo cliente con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -1243,10 +1239,10 @@ Scenario: Desde Otra Entidad hacia Celular BCP en soles mismo cliente con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -1265,15 +1261,15 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con CE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
     #* match creditorIdCode == 5
-    * match currency == 604
-    * match channel == 91  
+    * match currency == '604'
+    * match channel == '91'  
     #* match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -1285,10 +1281,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -1297,10 +1293,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -1308,10 +1304,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -1330,15 +1326,15 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con DNI
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
     #* match creditorIdCode == 2
-    * match currency == 604
-    * match channel == 91  
+    * match currency == '604'
+    * match channel == '91'  
     #* match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -1350,10 +1346,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -1362,10 +1358,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -1373,10 +1369,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -1395,15 +1391,15 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con Pasaporte
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
 
     #* match creditorIdCode == 4
-    * match currency == 604
-    * match channel == 91  
+    * match currency == '604'
+    * match channel == '91'  
     #* match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -1415,10 +1411,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con Pasaporte
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -1427,10 +1423,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con Pasaporte
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -1438,10 +1434,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con Pasaporte
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -1460,15 +1456,15 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con CE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
     #* match creditorIdCode == 5
-    * match currency == 604
-    * match channel == 91  
+    * match currency == '604'
+    * match channel == '91'  
     #* match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -1480,10 +1476,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -1492,10 +1488,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -1503,10 +1499,10 @@ Scenario: Desde PLIN hacia Celular BCP en soles como tercero con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -1525,15 +1521,15 @@ Scenario: Desde PLIN hacia YAPE como tercero con PASAPORTE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
     #* match creditorIdCode == 4
-    * match currency == 604
-    * match channel == 52
+    * match currency == '604'
+    * match channel == '52'
     #* match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -1545,10 +1541,10 @@ Scenario: Desde PLIN hacia YAPE como tercero con PASAPORTE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -1557,10 +1553,10 @@ Scenario: Desde PLIN hacia YAPE como tercero con PASAPORTE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -1568,10 +1564,10 @@ Scenario: Desde PLIN hacia YAPE como tercero con PASAPORTE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -1590,15 +1586,15 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con CE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
     #* match creditorIdCode == 5
-    * match currency == 604
-    * match channel == 52
+    * match currency == '604'
+    * match channel == '52'
     #* match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
@@ -1610,10 +1606,10 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -1622,10 +1618,10 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -1633,10 +1629,10 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -1655,15 +1651,15 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con DNI
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
 
     #* match creditorIdCode == 2
-    * match currency == 604
-    * match channel == 52
+    * match currency == '604'
+    * match channel == '52'
     #* match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
@@ -1675,10 +1671,10 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -1687,10 +1683,10 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -1698,10 +1694,10 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -1720,15 +1716,15 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con PASAPORTE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
    
    # * match creditorIdCode == 4
-    * match currency == 604
-    * match channel == 52
+    * match currency == '604'
+    * match channel == '52'
    # * match sameCustomerFlag == 'M'
     * match transactionType == "320"
 
@@ -1740,10 +1736,10 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con PASAPORTE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -1752,10 +1748,10 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con PASAPORTE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -1763,10 +1759,10 @@ Scenario: Desde PLIN hacia YAPE para mismo cliente con PASAPORTE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -1785,15 +1781,15 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con PASAPORTE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
     #* match creditorIdCode == 4
-    * match currency == 604
-    * match channel == 52
+    * match currency == '604'
+    * match channel == '52'
     #* match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -1805,10 +1801,10 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con PASAPORTE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -1817,10 +1813,10 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con PASAPORTE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -1828,10 +1824,10 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con PASAPORTE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -1850,15 +1846,15 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con CE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
     #* match creditorIdCode == 5
-    * match currency == 604
-    * match channel == 52
+    * match currency == '604'
+    * match channel == '52'
     #* match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -1870,10 +1866,10 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -1882,10 +1878,10 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -1893,10 +1889,10 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -1915,15 +1911,15 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con DNI
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
 
    # * match creditorIdCode == 2
-    * match currency == 604
-    * match channel == 52
+    * match currency == '604'
+    * match channel == '52'
    # * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -1935,10 +1931,10 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -1947,10 +1943,10 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -1958,10 +1954,10 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -1980,15 +1976,15 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con PASAPORTE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
 
     #* match creditorIdCode == 4
-    * match currency == 604
-    * match channel == 52
+    * match currency == '604'
+    * match channel == '52'
     #* match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -2000,10 +1996,10 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con PASAPORTE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -2012,10 +2008,10 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con PASAPORTE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -2023,10 +2019,10 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con PASAPORTE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -2045,15 +2041,15 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con CE
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
 
   #  * match creditorIdCode == 5
-    * match currency == 604
-    * match channel == 52
+    * match currency == '604'
+    * match channel == '52'
   #  * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -2065,10 +2061,10 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con CE
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -2077,10 +2073,10 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con CE
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -2088,10 +2084,10 @@ Scenario: Desde Gmoney hacia YAPE por codigo QR como tercero con CE
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204

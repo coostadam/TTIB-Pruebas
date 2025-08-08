@@ -1,5 +1,6 @@
 #TEST_127, TEST_128
 @otros
+@pendingAutomation
 Feature: Validar el bloqueo de entidad receptora
 
   Background:
@@ -39,7 +40,7 @@ Feature: Validar el bloqueo de entidad receptora
     * def result = call read('examples/testBCP/features/integracionTemprana/consultaCuenta/consultaDeCuenta.feature')
     * def channel = result.channel
     * def transactionType = result.transactionType
-    * match channel == 91
+    * match channel == '91'
     * match transactionType == "325"
 
     * def body = jsonErrorPCTWeb

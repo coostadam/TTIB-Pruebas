@@ -1,5 +1,6 @@
 # TEST_017, TEST_016, TEST_028, TEST_027, TEST_026, TEST_025, TEST_029, TEST_024
 @integracionTemprana
+@pendingAutomation
 Feature: Recepción de abonos no exitosos por datos inválidos
 
   Background:

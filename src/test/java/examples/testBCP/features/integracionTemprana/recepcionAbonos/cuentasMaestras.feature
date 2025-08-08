@@ -1,18 +1,17 @@
-#TEST_014
+# TEST_129
 @integracionTemprana
 @pendingAutomation
-Feature: Recepción de abonos en Cuentas Corrientes
+Feature: Recepción de abonos en Cuentas Maestras
 
   Background:
-    * url apiUrl
     * def dataAV2 = read('examples/testBCP/jsonData/dataAV2.json')
     * def dataAV3 = read('examples/testBCP/jsonData/dataAV3.json')
     * def dataCT2 = read('examples/testBCP/jsonData/dataCT2.json')
     * def dataCT3 = read('examples/testBCP/jsonData/dataCT3.json')
     * def dataCT5 = read('examples/testBCP/jsonData/dataCT5.json')
-
-#TEST_014
-  Scenario: Desde PLIN hacia Celular BCP en soles como tercero con RUC
+   
+# TEST_129
+Scenario: En dolares como tercero con DNI
     Given path 'achoperations', 'iniciate', 'mock'
     And request JSON
     When method POST
@@ -31,10 +30,10 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * def channel = response.channel
     * def transactionType = response.transactionType
 
-   # * match creditorIdCode == 6  
-    * match currency == '604'
-    * match channel == '91' 
-   # * match sameCustomerFlag == 'O'
+   #  * match creditorIdCode == 2
+    * match currency == '840'
+    * match channel == '15'  
+    # * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
     Given path 'achoperations', 'exchange', 'mock'
@@ -47,7 +46,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
     * def amount = response.amount
     * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
-
+    
     Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2

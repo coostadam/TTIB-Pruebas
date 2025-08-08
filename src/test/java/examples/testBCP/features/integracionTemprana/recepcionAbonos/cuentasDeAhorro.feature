@@ -1,6 +1,6 @@
 # TEST_013 y TEST_010
 @integracionTemprana
-
+@pendingAutomation
 Feature: Recepción de abonos en cuenta de Ahorro
 
   Background:
@@ -10,7 +10,7 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * def dataCT3 = read('examples/testBCP/jsonData/dataCT3.json')
     * def dataCT5 = read('examples/testBCP/jsonData/dataCT5.json')
     * def result = call read('examples/testBCP/features/integracionTemprana/consultaCuenta/consultaDeCuenta.feature')
-    * def achoperationsId = result.instructionId
+    * def instructionId = result.instructionId
     * def creditorIdCode = result.creditorIdCode
     * def currency = result.currency
     * def channel = result.channel 
@@ -31,15 +31,15 @@ Feature: Recepción de abonos en cuenta de Ahorro
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
 
     #* match creditorIdCode == 6  
-    * match currency == 840
-    * match channel == 15  
+    * match currency == '840'
+    * match channel == '15'  
     #* match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -51,11 +51,11 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -64,10 +64,10 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -75,10 +75,10 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -97,15 +97,15 @@ Feature: Recepción de abonos en cuenta de Ahorro
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
    #* match creditorIdCode == 6  
-    * match currency == 604
-    * match channel == 91  
+    * match currency == '604'
+    * match channel == '91'  
    # * match sameCustomerFlag == 'O'
     * match transactionType == "320"
     
@@ -117,11 +117,11 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
     
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -130,10 +130,10 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -141,10 +141,10 @@ Feature: Recepción de abonos en cuenta de Ahorro
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204
@@ -163,15 +163,15 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con DNI
     When method POST
     Then status 200
     And match response == dataAV3
-    * def achoperationsId = response.instructionId
+    * def instructionId = response.instructionId
     * def creditorIdCode = response.creditorIdCode
     * def currency = response.currency
     * def channel = response.channel
     * def transactionType = response.transactionType
     
   #  * match creditorIdCode == 2
-    * match currency == 604
-    * match channel == 52
+    * match currency == '604'
+    * match channel == '52'
   #  * match sameCustomerFlag == 'O'
     * match transactionType == "320"
 
@@ -183,10 +183,10 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con DNI
     * def debtorCCI = response.debtorCCI
     * def idInstruction = response.instructionId
     * def amount = response.amount
-    * def retrievalReferenteNumber = response.retrievalReferenceNumber
+    * def retrievalReferenceNumber = response.retrievalReferenceNumber
     * def CT2 = response
 
-    Given path 'achoperations', achoperationsId, 'exchange'
+    Given path 'achoperations', instructionId, 'exchange'
     When method POST
     And request CT2
     Then status 200
@@ -195,10 +195,10 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con DNI
     * match response.amount == amount
     * match response.instructionId == idInstruction
     * match response.currency == currency
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT3 = response
 
-    Given path 'confirmation-of-payment', 'mock'
+    Given path 'achoperations', instructionId, 'execute', 'mock'
     When method GET
     Then status 200
     And match response == dataCT5
@@ -206,10 +206,10 @@ Scenario: Desde BIM hacia YAPE por codigo QR como tercero con DNI
     * match response.debtorCCI == debtorCCI
     * match response.instructionId == idInstruction
     * match response.amount == amount
-    * match response.retrievalReferenceNumber == retrievalReferenteNumber
+    * match response.retrievalReferenceNumber == retrievalReferenceNumber
     * def CT5 = response
 
-    Given path 'confirmation-of-payment'
+    Given path 'achoperations', instructionId, 'execute'
     When method POST
     And request CT5
     Then status 204

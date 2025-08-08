@@ -8,7 +8,7 @@
     "retrievalReferenceNumber": "#string? _.length == 12",
     "trace": "#string? _.length == 6",
     "amount": "#number",
-    "currency": "#string? _ == '604' || _ == '840'",
+    "currency": "#string? _ == ''604'' || _ == ''840''",
     "transactionReference": "##string? _.length <= 35",
     "responseCode": "##string? _ == '00' || _ == '05'",
     "feeAmount": "#number",
@@ -21,7 +21,7 @@
     "instructionId": "#string? _.length <= 35",
     "creationDate": "#regex \\d{8}",
     "creationTime": "#regex \\d{6}",
-    "channel": "#string? _ == '15' || _ == '91' || _ == '52'",
+    "channel": "#string? _ == ''15'' || _ == ''91'' || _ == ''52''",
     "interbankSettlementAmount": "#number"
   }
 }

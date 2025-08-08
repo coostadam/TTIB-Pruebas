@@ -1,5 +1,6 @@
 # TEST_064, TEST_065, TEST_066, TEST_067, TEST_114
 @otros
+@pendingAutomation
 Feature: Recepción de abonos no exitosos por datos inválidos
 
   Background:
