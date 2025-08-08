@@ -5,8 +5,6 @@ Feature: Validar el bloqueo de entidad receptora
 
   Background:
     * url apiUrl
-    
-
 
 # TEST_127
   Scenario: Después de 8 intentos hacia YAPE en AEC
@@ -37,11 +35,23 @@ Feature: Validar el bloqueo de entidad receptora
 
 # TEST_128
   Scenario: Después de 8 intentos hacia celular BCP en AEC
-    * def result = call read('examples/testBCP/features/integracionTemprana/consultaCuenta/consultaDeCuenta.feature')
-    * def channel = result.channel
-    * def transactionType = result.transactionType
-    * match channel == '91'
-    * match transactionType == "325"
+    * Given path 'achoperations', 'initiate', 'mock'
+    And request JSON
+    When method POST
+    Then status 200
+    And match response == dataAV2
+    * def AV2 = response
+
+    Given path 'achoperations', 'initiate'
+    And request AV2
+    When method POST
+    Then status 200
+    And match response == dataAV3
+    * def instructionId = response.instructionId
+    * def creditorIdCode = response.creditorIdCode
+    * def currency = response.currency
+    * def channel = response.channel
+    * def transactionType = response.transactionType
 
     * def body = jsonErrorPCTWeb
 
