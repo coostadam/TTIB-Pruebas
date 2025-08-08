@@ -1,0 +1,23 @@
+{
+  "debtorParticipantCode" : "0049",
+  "creditorParticipantCode" : "0002",
+  "responseDate" : "20250807",
+  "responseTime" : "154041",
+  "terminalId" : "A1B2C3D4",
+  "retrievalReferenteNumber" : "123456789012",
+  "trace" : "993712",
+  "amount" : "6959",
+  "currency" : "840",
+  "transactionReference" : "EE4tiESkS3",
+  "responseCode" : "00",
+  "reasonCode" : "DD04",
+  "feeAmount" : "16",
+  "settlementDate" : "20250807",
+  "transactionType" : "320",
+  "debtorCCI" : "09870000262212932984",
+  "creditorCCI" : "12345678901234567890",
+  "creditorCreditCard" : "11112222333344445555",
+  "sameCustomerFlag" : "O",
+  "branchId" : "SucursalPrincipal123",
+  "instructionId" : "M08071540414296667656"
+}

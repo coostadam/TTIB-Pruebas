@@ -2,6 +2,9 @@ package examples.testBCP.helpers.Generator;
 
 import java.util.Random;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class CT2Message {
     static Random random = new Random();
 
@@ -60,6 +63,52 @@ public class CT2Message {
         interbankSettlementAmount = String.valueOf(Integer.parseInt(amount) + Integer.parseInt(feeAmount));
     }
 
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("debtorParticipantCode", debtorParticipantCode);
+        map.put("creditorParticipantCode", creditorParticipantCode);
+        map.put("creationDate", creationDate);
+        map.put("creationTime", creationTime);
+        map.put("terminalId", terminalId);
+        map.put("retrievalReferenteNumber", retrievalReferenteNumber);
+        map.put("trace", trace);
+        map.put("channel", channel);
+        map.put("amount", amount);
+        map.put("currency", currency);
+        map.put("transactionReference", transactionReference);
+        map.put("referenceTransactionId", referenceTransactionId);
+        map.put("transactionType", transactionType);
+        map.put("feeAmount", feeAmount);
+        map.put("feeCode", feeCode);
+        map.put("applicationCriteria", applicationCriteria);
+        map.put("debtorTypeOfPerson", debtorTypeOfPerson);
+        map.put("debtorName", debtorName);
+        map.put("debtorAddressLine", debtorAddressLine);
+        map.put("debtorIdCode", debtorIdCode);
+        map.put("debtorId", debtorId);
+        map.put("debtorPhoneNumber", debtorPhoneNumber);
+        map.put("debtorMobileNumber", debtorMobileNumber);
+        map.put("debtorCCI", debtorCCI);
+        map.put("creditorName", creditorName);
+        map.put("creditorAddressLine", creditorAddressLine);
+        map.put("creditorPhoneNumber", creditorPhoneNumber);
+        map.put("creditorMobileNumber", creditorMobileNumber);
+        map.put("creditorCCI", creditorCCI);
+        map.put("creditorCreditCard", creditorCreditCard);
+        map.put("sameCustomerFlag", sameCustomerFlag);
+        map.put("purposeCode", purposeCode);
+        map.put("unstructuredInformation", unstructuredInformation);
+        map.put("grossSalaryAmount", grossSalaryAmount);
+        map.put("salaryPaymentIndicator", salaryPaymentIndicator);
+        map.put("monthOfThePayment", monthOfThePayment);
+        map.put("yearOfThePayment", yearOfThePayment);
+        map.put("branchId", branchId);
+        map.put("settlementDate", settlementDate);
+        map.put("instructionId", instructionId);
+        map.put("interbankSettlementAmount", interbankSettlementAmount);
+        return map;
+    }
+
     public String toCSV() {
         return String.join(",", debtorParticipantCode, creditorParticipantCode, creationDate, creationTime,
                 terminalId, retrievalReferenteNumber, trace, channel, amount, currency, transactionReference,
@@ -69,16 +118,6 @@ public class CT2Message {
                 creditorCCI, creditorCreditCard, sameCustomerFlag, purposeCode, unstructuredInformation,
                 grossSalaryAmount, salaryPaymentIndicator, monthOfThePayment, yearOfThePayment, branchId,
                 settlementDate, instructionId, interbankSettlementAmount);
-    }
-
-    public static String returnCSVHeaders(){
-        return "debtorParticipantCode,creditorParticipantCode,creationDate,creationTime,terminalId,retrievalReferenteNumber," +
-                "trace,channel,amount,currency,transactionReference,referenceTransactionId,transactionType,feeAmount," +
-                "feeCode,applicationCriteria,debtorTypeOfPerson,debtorName,debtorAddressLine,debtorIdCode,debtorId," +
-                "debtorPhoneNumber,debtorMobileNumber,debtorCCI,creditorName,creditorAddressLine,creditorPhoneNumber," +
-                "creditorMobileNumber,creditorCCI,creditorCreditCard,sameCustomerFlag,purposeCode," +
-                "unstructuredInformation,grossSalaryAmount,salaryPaymentIndicator,monthOfThePayment," +
-                "yearOfThePayment,branchId,settlementDate,instructionId,interbankSettlementAmount";
     }
 
     private static String randomText(int len) {

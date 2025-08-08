@@ -2,6 +2,7 @@ package examples.testBCP.helpers.Generator;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -91,21 +92,35 @@ public class AV2Message {
         this.branchId = branchId;
     }
 
-
-    public String toCSV() {
-        return String.join(",", debtorParticipantCode, creditorParticipantCode, creationDate, creationTime, terminalId,
-                retrievalReferenteNumber, trace, debtorName, debtorId, debtorIdCode, debtorPhoneNumber, debtorAddressLine,
-                debtorMobileNumber, transactionType, channel, creditorAddressLine, creditorPhoneNumber,
-                creditorMobileNumber, creditorCCI, creditorCreditCard, debtorTypeOfPerson, currency, proxyValue,
-                proxyType, instructionId, branchId);
-    }
-
-    public static String returnCSVHeaders() {
-        return "debtorParticipantCode,creditorParticipantCode,creationDate,creationTime,terminalId,retrievalReferenteNumber," +
-                "trace,debtorName,debtorId,debtorIdCode,debtorPhoneNumber,debtorAddressLine,debtorMobileNumber," +
-                "transactionType,channel,creditorAddressLine,creditorPhoneNumber,creditorMobileNumber," +
-                "creditorCCI,creditorCreditCard,debtorTypeOfPerson,currency,proxyValue,proxyType,instructionId," +
-                "branchId";
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("debtorParticipantCode", debtorParticipantCode);
+        map.put("creditorParticipantCode", creditorParticipantCode);
+        map.put("creationDate", creationDate);
+        map.put("creationTime", creationTime);
+        map.put("terminalId", terminalId);
+        map.put("retrievalReferenteNumber", retrievalReferenteNumber);
+        map.put("trace", trace);
+        map.put("debtorName", debtorName);
+        map.put("debtorId", debtorId);
+        map.put("debtorIdCode", debtorIdCode);
+        map.put("debtorPhoneNumber", debtorPhoneNumber);
+        map.put("debtorAddressLine", debtorAddressLine);
+        map.put("debtorMobileNumber", debtorMobileNumber);
+        map.put("transactionType", transactionType);
+        map.put("channel", channel);
+        map.put("creditorAddressLine", creditorAddressLine);
+        map.put("creditorPhoneNumber", creditorPhoneNumber);
+        map.put("creditorMobileNumber", creditorMobileNumber);
+        map.put("creditorCCI", creditorCCI);
+        map.put("creditorCreditCard", creditorCreditCard);
+        map.put("debtorTypeOfPerson", debtorTypeOfPerson);
+        map.put("currency", currency);
+        map.put("proxyValue", proxyValue);
+        map.put("proxyType", proxyType);
+        map.put("instructionId", instructionId);
+        map.put("branchId", branchId);
+        return map;
     }
 
     public static AV2Message fromMap(Map<String, Object> map) {

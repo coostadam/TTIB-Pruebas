@@ -2,6 +2,8 @@ package examples.testBCP.helpers.Generator;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class CT5Message {
     String debtorParticipantCode;
@@ -54,6 +56,34 @@ public class CT5Message {
         interbankSettlementAmount = ct2.interbankSettlementAmount;
     }
 
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("debtorParticipantCode", debtorParticipantCode);
+        map.put("creditorParticipantCode", creditorParticipantCode);
+        map.put("responseDate", responseDate);
+        map.put("responseTime", responseTime);
+        map.put("terminalId", terminalId);
+        map.put("retrievalReferenteNumber", retrievalReferenteNumber);
+        map.put("trace", trace);
+        map.put("amount", amount);
+        map.put("currency", currency);
+        map.put("transactionReference", transactionReference);
+        map.put("responseCode", responseCode);
+        map.put("feeAmount", feeAmount);
+        map.put("settlementDate", settlementDate);
+        map.put("transactionType", transactionType);
+        map.put("debtorCCI", debtorCCI);
+        map.put("creditorCCI", creditorCCI);
+        map.put("creditorCreditCard", creditorCreditCard);
+        map.put("sameCustomerFlag", sameCustomerFlag);
+        map.put("instructionId", instructionId);
+        map.put("creationDate", creationDate);
+        map.put("creationTime", creationTime);
+        map.put("channel", channel);
+        map.put("interbankSettlementAmount", interbankSettlementAmount);
+        return map;
+    }
+
     public String toCSV() {
         return String.join(",",
                 debtorParticipantCode, creditorParticipantCode, responseDate, responseTime,
@@ -61,13 +91,6 @@ public class CT5Message {
                 responseCode, feeAmount, settlementDate, transactionType, debtorCCI, creditorCCI,
                 creditorCreditCard, sameCustomerFlag, instructionId, creationDate, creationTime,
                 channel, interbankSettlementAmount);
-    }
-
-    public static String returnCSVHeaders() {
-        return "debtorParticipantCode,creditorParticipantCode,responseDate,responseTime,terminalId,retrievalReferenteNumber," +
-                "trace,amount,currency,transactionReference,responseCode,feeAmount,settlementDate," +
-                "transactionType,debtorCCI,creditorCCI,creditorCreditCard,sameCustomerFlag,instructionId," +
-                "creationDate,creationTime,channel,interbankSettlementAmount";
     }
 
     private static String nowDate() {

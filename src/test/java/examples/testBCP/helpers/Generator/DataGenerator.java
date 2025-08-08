@@ -1,11 +1,12 @@
 package examples.testBCP.helpers.Generator;
 
-import java.io.FileWriter;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class DataGenerator {
     static Random random = new Random();
@@ -22,8 +23,8 @@ public class DataGenerator {
         lastAV2 = av2;
         lastAV3 = av3;
 
-        save("src/test/java/examples/testBCP/data/csv/dataAV2.csv", AV2Message.returnCSVHeaders(), List.of(av2));
-        save("src/test/java/examples/testBCP/data/csv/dataAV3.csv", AV3Message.returnCSVHeaders(), List.of(av3));
+        saveJson("dataAV2.json", av2.toMap());
+        saveJson("dataAV3.json", av3.toMap());
     }
 
     public static void generateCT2yCT3() {
@@ -37,8 +38,8 @@ public class DataGenerator {
         lastCT2 = ct2;
         lastCT3 = ct3;
 
-        save("src/test/java/examples/testBCP/data/csv/dataCT2.csv", CT2Message.returnCSVHeaders(), List.of(ct2));
-        save("src/test/java/examples/testBCP/data/csv/dataCT3.csv", CT3Message.returnCSVHeaders(), List.of(ct3));
+        saveJson("dataCT2.json", ct2.toMap());
+        saveJson("dataCT3.json", ct3.toMap());
     }
 
     public static void generateCT5() {
@@ -48,21 +49,18 @@ public class DataGenerator {
 
         CT5Message ct5 = new CT5Message(lastAV2, lastAV3, lastCT2, lastCT3);
 
-        save("src/test/java/examples/testBCP/data/csv/dataCT5.csv", CT5Message.returnCSVHeaders(), List.of(ct5));
+        saveJson("dataCT5.json", ct5.toMap());
     }
 
-    private static void save(String filename, String header, List<?> messages) {
-        try (FileWriter writer = new FileWriter(filename, StandardCharsets.UTF_8)) {
-            writer.write(header + "\n");
-            for (Object msg : messages) {
-                if (msg instanceof AV2Message) writer.write(((AV2Message) msg).toCSV() + "\n");
-                else if (msg instanceof AV3Message) writer.write(((AV3Message) msg).toCSV() + "\n");
-                else if (msg instanceof CT2Message) writer.write(((CT2Message) msg).toCSV() + "\n");
-                else if (msg instanceof CT3Message) writer.write(((CT3Message) msg).toCSV() + "\n");
-                else if (msg instanceof CT5Message) writer.write(((CT5Message) msg).toCSV() + "\n");
-            }
+    public static void saveJson(String filename, Map<String, Object> data) {
+        ObjectMapper mapper = new ObjectMapper();
+        Path path = Paths.get("src/test/java/examples/testBCP/data/jsonData/examples/" + filename);
+
+        try {
+            Files.createDirectories(path.getParent()); // Asegura que exista el directorio
+            mapper.writerWithDefaultPrettyPrinter().writeValue(path.toFile(), data);
         } catch (IOException e) {
-            System.err.println("Error writing file " + filename + ": " + e.getMessage());
+            System.err.println("Error writing JSON to file " + filename + ": " + e.getMessage());
         }
     }
 }

@@ -47,7 +47,7 @@ Feature: Recepción de abonos en Cuentas Corrientes
     When method GET
     Then status 200
     And match response == dataCT2
-    * def currency = response.currency
+    * match response.currency == currency
     * def debtorCCI = response.debtorCCI
     * def amount = response.amount
     * def retrievalReferenteNumber = response.retrievalReferenteNumber

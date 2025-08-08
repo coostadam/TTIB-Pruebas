@@ -1,5 +1,7 @@
 package examples.testBCP.helpers.Generator;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class AV3Message {
@@ -73,20 +75,50 @@ public class AV3Message {
         sameCustomerFlag = (random.nextBoolean() ? "M" : "O");
     }
 
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("debtorParticipantCode", debtorParticipantCode);
+        map.put("creditorParticipantCode", creditorParticipantCode);
+        map.put("creationDate", creationDate);
+        map.put("creationTime", creationTime);
+        map.put("terminalId", terminalId);
+        map.put("retrievalReferenteNumber", retrievalReferenteNumber);
+        map.put("trace", trace);
+        map.put("branchId", branchId);
+        map.put("debtorName", debtorName);
+        map.put("debtorId", debtorId);
+        map.put("debtorIdCode", debtorIdCode);
+        map.put("debtorPhoneNumber", debtorPhoneNumber);
+        map.put("debtorAddressLine", debtorAddressLine);
+        map.put("debtorMobileNumber", debtorMobileNumber);
+        map.put("transactionType", transactionType);
+        map.put("creditorAddressLine", creditorAddressLine);
+        map.put("channel", channel);
+        map.put("instructionId", instructionId);
+        map.put("currency", currency);
+        map.put("proxyValue", proxyValue);
+        map.put("proxyType", proxyType);
+
+        map.put("responseCode", responseCode);
+        map.put("reasonCode", reasonCode);
+        map.put("creditorName", creditorName);
+        map.put("creditorId", creditorId);
+        map.put("creditorIdCode", creditorIdCode);
+        map.put("creditorPhoneNumber", creditorPhoneNumber);
+        map.put("creditorMobileNumber", creditorMobileNumber);
+        map.put("creditorCCI", creditorCCI);
+        map.put("creditorCreditCard", creditorCreditCard);
+        map.put("sameCustomerFlag", sameCustomerFlag);
+
+        return map;
+    }
+
     public String toCSV() {
         return String.join(",", debtorParticipantCode, creditorParticipantCode, creationDate, creationTime, terminalId,
                 retrievalReferenteNumber, trace, branchId, debtorName, debtorId, debtorIdCode, debtorPhoneNumber,
                 debtorAddressLine, debtorMobileNumber, transactionType, channel, instructionId, responseCode,
                 reasonCode, creditorName, creditorAddressLine, creditorId, creditorIdCode, creditorPhoneNumber,
                 creditorMobileNumber, creditorCCI, creditorCreditCard, sameCustomerFlag, currency, proxyValue, proxyType);
-    }
-
-    public static String returnCSVHeaders() {
-        return "debtorParticipantCode,creditorParticipantCode,creationDate,creationTime,terminalId,retrievalReferenteNumber," +
-                "trace,branchId,debtorName,debtorId,debtorIdCode,debtorPhoneNumber,debtorAddressLine,debtorMobileNumber," +
-                "transactionType,channel,instructionId,responseCode,reasonCode,creditorName,creditorAddressLine," +
-                "creditorId,creditorIdCode,creditorPhoneNumber,creditorMobileNumber,creditorCCI,creditorCreditCard," +
-                "sameCustomerFlag,currency,proxyValue,proxyType";
     }
 
     private static String randomName() {
